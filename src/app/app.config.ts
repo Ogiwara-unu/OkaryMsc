@@ -1,21 +1,36 @@
 import { ApplicationConfig, inject } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache } from '@apollo/client/core';
+import { InMemoryCache, ApolloLink } from '@apollo/client/core';
+import { setContext } from '@apollo/client/link/context';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideHttpClient(), provideApollo(() => {
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(),
+    provideApollo(() => {
       const httpLink = inject(HttpLink);
 
+      // Middleware para añadir el token JWT como Bearer Token
+      const authLink = setContext((_, { headers }) => {
+        const token = localStorage.getItem('token'); // Asegúrate de guardar el token aquí después del login
+        return {
+          headers: {
+            ...headers,
+            authorization: token ? `Bearer ${token}` : '', // Formato: "Bearer <token>"
+          },
+        };
+      });
+
       return {
-        link: httpLink.create({
-          uri: '<%= endpoint %>',
-        }),
+        link: authLink.concat(httpLink.create({ 
+          uri: 'http://localhost:9001/okaryMsc', // Endpoint de tu API
+        })),
         cache: new InMemoryCache(),
       };
-    })]
+    }),
+  ],
 };
