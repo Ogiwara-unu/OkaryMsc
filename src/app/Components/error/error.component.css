@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+
+body {
+    margin: 0;
+    background-color: #ffffff;
+    font-family: 'Jockey One', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-top: 100px; /* Espacio desde la parte superior */
+}
+
+/* Logo en la esquina superior izquierda */
+.logo-error {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.logo-error img {
+    width: 350px; 
+    height: auto;
+}
+
+/* Contenedor centrado vertical y horizontalmente */
+.error-page {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilos para el 404 */
+.error-code {
+  font-size: 200px;
+  color: #B3B3B3; /* Color original */
+  font-weight: 400; /* Regular */
+  line-height: 1;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+/* Mensaje de error */
+.error-message {
+    font-size: 30px;
+    font-weight: normal;
+    color: #B3B3B3;
+    margin-bottom: 40px;
+}
+
+/* Botón de inicio */
+.error-button {
+    background-color: #BBC0BA;
+    color: #FCF9F2;
+    font-family: 'Jockey One', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 200px;
+    height: auto;
+    letter-spacing: 0.2em; 
+}
+
+.error-button:hover {
+    background-color: #9ea59a;
+}

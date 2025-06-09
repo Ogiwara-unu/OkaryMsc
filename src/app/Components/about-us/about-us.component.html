@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+<body>
+    <div class="hero-card">
+   
+        <!-- Logo arriba a la izquierda -->
+        <div class="logo">
+            <img src="assets/img/logoo.png" alt="OKARYS Music" />
+        </div>
+
+        <!-- Título y texto -->
+
+        <h1>Sobre Nosotros.</h1>
+        <p>
+            Somos un grupo de desarrolladores apasionados por la buena música. De esta pasión nació okarys music, para rememorar nuestra música favorita, porque lo que se ama no se olvida.
+        </p>
+
+    </div>
+
+    <div class="container text-center mt-5">
+  <h1 class="section-title">Desarrolladores</h1>
+  <div class="row mt-4">
+    <div class="col-md-4 mb-4" *ngFor="let dev of developers">
+      <div class="cardDeveloper p-3 shadow-sm bg-light">
+        <img [src]="dev.avatar_url" class="rounded-circle mx-auto d-block mb-3" [alt]="dev.login">
+        <h5>{{ dev.login }}</h5>
+        <p class="text-muted">&#64;{{ dev.login }}</p>
+        <a [href]="dev.html_url" target="_blank" class="btn btn-outline-dark btn-sm">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
