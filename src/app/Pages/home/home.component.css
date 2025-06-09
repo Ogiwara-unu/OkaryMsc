@@ -38,7 +38,6 @@ body {
 .hero-card h1 {
     font-family: 'Jockey One', sans-serif;
     font-size: 48px;
-    margin-top: 5px;
     margin-bottom: 10px;
     text-align: center;
 }
@@ -76,6 +75,21 @@ body {
 .auth-buttons .register {
     background-color: #BBC0BA;
     color: #333;
+}
+.welcome-message {
+    position: absolute;
+    padding: 0.5rem;
+    top: 20px;
+    right: 20px;
+    font-size: 18px;
+    color: #333;
+    margin-right: 20px;
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    background-color: #BBC0BA;
 }
 
 /* Área de búsqueda dentro del hero */

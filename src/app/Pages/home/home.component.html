@@ -1,20 +1,25 @@
 <app-navbar></app-navbar>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
 <body>
     <div class="hero-card">
         <!-- Botones arriba a la derecha -->
-        <div class="auth-buttons">
+        <div class="auth-buttons" *ngIf="!authService.getCurrentUser(); else loggedInTemplate">
             <button class="login" (click)="showLoginModal = true">Iniciar Sesión</button>
             <button class="register" (click)="showSignupModal = true">Registrarse</button>
         </div>
+
+        <ng-template #loggedInTemplate>
+            <div class="welcome-message">
+                ¡Holaa, {{ authService.getCurrentUser()?.username }}!
+            </div>
+        </ng-template>
+        <!--Cerrar sesion-->
         <div *ngIf="authService.getCurrentUser()" class="logout-container">
-    <button class="logout-button" (click)="authService.logout()">
-        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-    </button>
-</div>
+            <button class="logout-button" (click)="authService.logout()">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
+        </div>
         <!-- Logo arriba a la izquierda -->
         <div class="logo">
             <img src="assets/img/okarys-logo.png" alt="OKARYS Music" />
