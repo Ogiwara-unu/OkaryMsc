@@ -6,9 +6,17 @@ import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache, ApolloLink } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimations(),
+    MatCardModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
     provideRouter(routes),
     provideHttpClient(),
     provideApollo(() => {
@@ -26,11 +34,12 @@ export const appConfig: ApplicationConfig = {
       });
 
       return {
-        link: authLink.concat(httpLink.create({ 
+        link: authLink.concat(httpLink.create({
           uri: 'http://localhost:9001/okaryMsc', // Endpoint de tu API
         })),
         cache: new InMemoryCache(),
       };
     }),
   ],
+
 };

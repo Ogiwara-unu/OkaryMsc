@@ -8,11 +8,14 @@
   background-color: white;
   border-bottom: none;
   font-family: 'Roboto', sans-serif;
+  position: relative;
+  flex-wrap: wrap;
 }
 
-.logo{
-    text-align: center;
+.logo {
+  text-align: center;
 }
+
 .logo img {
   height: 6ch;
   width: auto;
@@ -43,4 +46,44 @@
 
 .search-btn:hover {
   color: #8a928c;
+}
+
+/* Ocultar el checkbox y el icono de menú en pantallas grandes */
+#menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Responsive: mostrar menú hamburguesa */
+@media screen and (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid #ccc;
+  }
+
+  #menu-toggle:checked + .menu-icon + .nav-links {
+    display: flex;
+  }
+
+  .search-btn {
+    margin-left: auto;
+  }
 }

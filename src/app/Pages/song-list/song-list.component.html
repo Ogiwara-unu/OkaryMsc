@@ -1,0 +1,74 @@
+<app-navbar></app-navbar>
+<body>
+  <div class="song-list-container">
+  <h2>Lista de Canciones</h2>
+  
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Cargando canciones...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button mat-raised-button color="primary" (click)="loadSongs()">Reintentar</button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="songs-grid">
+    <mat-card *ngFor="let song of songs" class="song-card">
+      <img 
+        mat-card-image 
+        [src]="getImageUrl(song.photo)" 
+        alt="Portada de {{ song.title }}"
+        onerror="this.src='assets/img/default-song.png'"
+      >
+      <mat-card-content>
+        <h3>{{ song.title }}</h3>
+        <p><strong>Artista:</strong> {{ song.artist || 'Desconocido' }}</p>
+        <p><strong>Álbum:</strong> {{ song.album || 'Sin álbum' }}</p>
+        <p><strong>Duración:</strong> {{ formatDuration(song.duration) }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [routerLink]="['/songs', song.id]">
+          Ver detalles
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div><div class="song-list-container">
+  <h2>Lista de Canciones</h2>
+  
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Cargando canciones...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button mat-raised-button color="primary" (click)="loadSongs()">Reintentar</button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="songs-grid">
+    <mat-card *ngFor="let song of songs" class="song-card">
+      <img 
+        mat-card-image 
+        [src]="getImageUrl(song.photo)" 
+        alt="Portada de {{ song.title }}"
+        onerror="this.src='assets/img/default-song.png'"
+      >
+      <mat-card-content>
+        <h3>{{ song.title }}</h3>
+        <p><strong>Artista:</strong> {{ song.artist || 'Desconocido' }}</p>
+        <p><strong>Álbum:</strong> {{ song.album || 'Sin álbum' }}</p>
+        <p><strong>Duración:</strong> {{ formatDuration(song.duration) }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [routerLink]="['/songs', song.id]">
+          Ver detalles
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+</body>
+
+<app-footer></app-footer>
