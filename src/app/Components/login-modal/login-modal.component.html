@@ -1,0 +1,30 @@
+<div class="modal-overlay" (click)="close.emit()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-button" (click)="close.emit()">&times;</button>
+        <div class="header">
+            <img src="assets/img/okarys-logo.png" alt="OKARYS Music" />
+            <h2>Bienvenido</h2>
+            <p>Inicia sesión para descubrir, crear y disfrutar música como nunca antes con Okarys Music</p>
+        </div>
+
+        <form (ngSubmit)="submit()" [formGroup]="form">
+            <!-- Tus campos de formulario aquí -->
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" formControlName="email">
+            </div>
+
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" formControlName="password">
+            </div>
+
+            <div class="button">
+                <button type="submit" [disabled]="isLoading">
+                    {{ isLoading ? 'Cargando...' : 'Ingresar' }}
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

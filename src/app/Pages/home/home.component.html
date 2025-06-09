@@ -7,24 +7,26 @@
     <div class="hero-card">
         <!-- Botones arriba a la derecha -->
         <div class="auth-buttons">
-            <button class="login">Iniciar Sesión</button>
-            <button class="register">Registrarse</button>
+            <button class="login" (click)="showLoginModal = true">Iniciar Sesión</button>
+            <button class="register" (click)="showSignupModal = true">Registrarse</button>
         </div>
-
+        <div *ngIf="authService.getCurrentUser()" class="logout-container">
+    <button class="logout-button" (click)="authService.logout()">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+    </button>
+</div>
         <!-- Logo arriba a la izquierda -->
         <div class="logo">
-            <img src="assets/img/logoo.png" alt="OKARYS Music" />
+            <img src="assets/img/okarys-logo.png" alt="OKARYS Music" />
         </div>
 
         <!-- Título y texto -->
-
         <h1>Amor por la música.</h1>
         <p>
             Accede a una base de datos con más de 100 millones de canciones, artistas y álbumes.<br>
             Descubre información detallada, géneros, lanzamientos y discografías en segundos. Ideal para amantes de la
             música y proyectos musicales interactivos.
         </p>
-
     </div>
     <div class="search-bar-section">
         <div class="search-bar">
@@ -38,5 +40,7 @@
         <p class="subtext">Tu puerta de entrada al mundo musical, sin complicaciones.</p>
         <button class="playlist-button">Crear Playlist </button>
     </div>
-
 </body>
+
+<app-login-modal *ngIf="showLoginModal" (close)="showLoginModal = false"></app-login-modal>
+<app-signup-modal *ngIf="showSignupModal" (close)="showSignupModal = false"></app-signup-modal>
