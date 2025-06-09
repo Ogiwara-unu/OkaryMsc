@@ -37,7 +37,7 @@ body {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    color: #B3B3B3;
+    
 }
 
 
@@ -47,14 +47,17 @@ body {
     font-size: 55px;
     margin: 5px 0 10px;
     text-align: center;
+    color: #B3B3B3;
 }
 
 /* Párrafo */
 .hero-card p {
     max-width: 600px;
-    line-height: 1.5;
-    font-size: 25px;
+    line-height: 2rem;
+    font-size: 24px;
     text-align: justify;
+    color: #444;
+    font-family: 'Roboto', sans-serif;
 
 }
 
@@ -80,13 +83,13 @@ body {
 }
 
 .card {
-    background: #fcfaf5;
+    background: #FCF9F2;
     border: none;
     border-radius: 10px;
     box-shadow: none;
-    padding: 32px 16px 24px 16px;
+    padding: 32px 12px 24px 12px;
     text-align: center;
-    min-height: 320px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -99,12 +102,13 @@ body {
     object-fit: cover;
     border-radius: 50%;
     background: #b3b3b3;
-    margin-bottom: 18px;
+    margin-bottom: 25px;
+    margin-top: 5rem;
 }
 
 .card h5 {
     font-family: 'Jockey One', sans-serif;
-    color: #b3b3b3;
+    color: #BBC0BA;
     font-size: 26px;
     margin-bottom: 4px;
     font-weight: normal;
@@ -112,7 +116,7 @@ body {
 
 
 .card p.text-muted {
-    color: #b3b3b3 !important;
+    color: #999696 !important;
     font-size: 18px;
     margin-bottom: 12px;
 }

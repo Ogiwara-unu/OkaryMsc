@@ -3,11 +3,12 @@ import { NavbarComponent } from '../../Components/navbar/navbar.component';
 import {Developer} from '../../Services/developer.model';
 import { GithubService } from '../../Services/github.service';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [NavbarComponent,CommonModule],
+  imports: [NavbarComponent,CommonModule, FooterComponent],
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.css']
 })

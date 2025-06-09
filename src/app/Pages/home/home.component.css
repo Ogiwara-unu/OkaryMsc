@@ -199,3 +199,17 @@ body {
 .logout-button i {
     font-size: 16px;
 }
+
+.music-section{
+    background-color: #E6DED3;
+    border-radius: 16px;
+    margin: 4rem auto;
+    max-width: 90%;
+    max-height: 40%;
+    position: relative;
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.05)
+}
+.music-section img{
+    width: 100%;
+    border-radius: 12px;
+}

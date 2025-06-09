@@ -15,7 +15,8 @@
 
 .modal-content {
     background-color: #FCF9F2;
-    padding: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     border-radius: 8px;
     width: 90%;
     max-width: 400px;
@@ -67,8 +68,8 @@ img {
 }
 
 .form-group {
-    margin-bottom: 1rem;
-    margin-top: 10px;
+    margin-bottom: 0.5rem;
+    margin-top: 5px;
     padding: 0.5rem;
 }
 
@@ -129,7 +130,7 @@ button{
 }
 
 .login-link a {
-    color: #5a8fec;
+    color: #9ea59a;
     cursor: pointer;
     text-decoration: none;
     font-weight: 500;

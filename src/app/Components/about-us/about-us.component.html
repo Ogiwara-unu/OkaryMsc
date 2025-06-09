@@ -24,7 +24,7 @@
   <h1 class="section-title">Desarrolladores</h1>
   <div class="row mt-4">
     <div class="col-md-4 mb-4" *ngFor="let dev of developers">
-      <div class="card p-3 shadow-sm bg-light">
+      <div class="card p-3 shadow-sm">
         <img [src]="dev.avatar_url" class="rounded-circle mx-auto d-block mb-3" [alt]="dev.login">
         <h5>{{ dev.login }}</h5>
         <p class="text-muted">&#64;{{ dev.login }}</p>
@@ -36,3 +36,4 @@
   </div>
 </div>
 </body>
+<app-footer></app-footer>
