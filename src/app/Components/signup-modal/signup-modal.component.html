@@ -1,0 +1,63 @@
+<div class="modal-overlay" (click)="close.emit()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-button" (click)="close.emit()">&times;</button>
+        <div class="header">
+            <img src="assets/img/okarys-logo.png" alt="OKARYS Music" />
+            <h2>Únete a nosotros</h2>
+            <p>Crea tu cuenta para descubrir, crear y disfrutar música como nunca antes con Okarys Music</p>
+        </div>
+
+        <form (ngSubmit)="submit()" [formGroup]="form">
+            <div class="form-group">
+                <label>Nombre de usuario</label>
+                <input type="text" formControlName="username" placeholder="Ej: musiclover123">
+                <div *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="error">
+                    Nombre de usuario requerido (mín. 3 caracteres)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" formControlName="email" placeholder="Ej: tu@email.com">
+                <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="error">
+                    Email inválido
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" formControlName="password" placeholder="Mínimo 8 caracteres">
+                <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="error">
+                    Contraseña requerida (mín. 8 caracteres)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Confirmar contraseña</label>
+                <input type="password" formControlName="confirmPassword" placeholder="Vuelve a escribir tu contraseña">
+                <div *ngIf="form.get('confirmPassword')?.errors?.['mismatch'] && form.get('confirmPassword')?.touched"
+                    class="error">
+                    Las contraseñas no coinciden
+                </div>
+            </div>
+
+            <div *ngIf="errorMessage" class="error-message">
+                {{ errorMessage }}
+            </div>
+
+            <div *ngIf="successMessage" class="success-message">
+                {{ successMessage }}
+            </div>
+
+            <div class="button">
+                <button type="submit" [disabled]="isLoading || form.invalid">
+                    {{ isLoading ? 'Registrando...' : 'Crear cuenta' }}
+                </button>
+            </div>
+
+            <div class="login-link">
+                <p>¿Ya tienes una cuenta? <a (click)="onSwitchToLogin()">Inicia sesión</a></p>
+            </div>
+        </form>
+    </div>
+</div>

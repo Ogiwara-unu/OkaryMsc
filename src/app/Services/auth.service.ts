@@ -1,33 +1,86 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
-import { Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError, tap } from 'rxjs/operators';
+import { CREATE_USER_MUTATION } from '../grahpql/mutations';
+import { Apollo } from 'apollo-angular';
 
-@Injectable({ providedIn: 'root' })
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  role: string;
+}
+
+interface AuthResponse {
+  token: string;
+  user: User;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  constructor(private apollo: Apollo, private router: Router) { }
+  private readonly baseUrl = 'http://localhost:9001';
 
-  login(email: string, password: string): Observable<string> {
+  constructor(private http: HttpClient, private apollo: Apollo) { }
+
+  // auth.service.ts - Versión mejorada
+  register(username: string, email: string, password: string): Observable<any> {
     return this.apollo.mutate({
-      mutation: gql`
-        mutation Login($email: String!, $password: String!) {
-          login(email: $email, password: $password) {
-            token
-          }
+      mutation: CREATE_USER_MUTATION,
+      variables: {
+        input: {
+          username,
+          email,
+          password,
+          role: 'user'
         }
-      `,
-      variables: { email, password },
+      },
+      context: {
+        headers: {
+          'No-Auth': 'True'
+        }
+      },
+      errorPolicy: 'all' // Esto permite recibir errores de red y GraphQL
     }).pipe(
       map((result: any) => {
-        const token = result.data.login.token;
-        localStorage.setItem('token', token);
-        return token;
+        if (result.errors) {
+          throw new Error(result.errors[0].message);
+        }
+        return result.data?.crearUsuario;
+      }),
+      catchError((error: any) => {
+        console.error('Error completo:', error);
+        let errorMsg = 'Error en el registro';
+        if (error.networkError) {
+          errorMsg = 'Error de conexión con el servidor';
+        } else if (error.graphQLErrors?.length > 0) {
+          errorMsg = error.graphQLErrors[0].message;
+        }
+        return throwError(() => new Error(errorMsg));
+      })
+    );
+  }
+
+
+
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, { email, password }).pipe(
+      tap((res: AuthResponse) => {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('user', JSON.stringify(res.user));
       })
     );
   }
 
   logout(): void {
     localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    localStorage.removeItem('user');
+  }
+
+  getCurrentUser(): User | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   }
 }
