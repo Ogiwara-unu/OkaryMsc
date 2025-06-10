@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
 
       // Middleware para añadir el token JWT como Bearer Token
       const authLink = setContext((_, { headers }) => {
-        const token = localStorage.getItem('token'); // Asegúrate de guardar el token aquí después del login
+        const token = sessionStorage.getItem('token'); // Asegúrate de guardar el token aquí después del login
         return {
           headers: {
             ...headers,

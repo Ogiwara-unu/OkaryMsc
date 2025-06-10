@@ -1,0 +1,34 @@
+<div class="modal-overlay" (click)="close.emit()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-button" (click)="close.emit()">&times;</button>
+        <div class="header">
+            <img src="assets/img/okarys-logo.png" alt="OKARYS Music" />
+            <h2>Actualizar</h2>
+        </div>
+
+        <form (ngSubmit)="submit()" [formGroup]="form">
+            <!-- Tus campos de formulario aquí -->
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" formControlName="email">
+            </div>
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="username" formControlName="username">
+            </div>
+
+            <div class="form-group">
+                <label>Rol</label>
+                <input type="role" formControlName="role">
+            </div>
+
+            <div class="button">
+                <button type="submit" [disabled]="isLoading">
+                    {{ isLoading ? 'Cargando...' : 'Actualizar' }}
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
