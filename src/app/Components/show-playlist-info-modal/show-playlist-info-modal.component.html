@@ -1,0 +1,35 @@
+ <div class="showPlaylistInfo-container">
+    <div *ngIf="loading" class="loading-spinner">
+      <p>Cargando datos de la playlist...</p>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      <p>{{ error }}</p>
+    </div>
+
+    <div *ngIf="!loading && !error">
+      <div class="playlist-header playlist-title">{{ playlist.name }}</div>
+      <div class="playlist-header playlist-meta"><strong>Descripción:</strong> {{ playlist.description }}</div>
+      <div class="playlist-header playlist-meta"><strong>Usuario:</strong> {{ playlist.user.username }}</div>
+
+      <h3>Canciones</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Artista</th>
+            <th>Álbum</th>
+            <th>Duración</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let song of songs">
+            <td>{{ song.title }}</td>
+            <td>{{ song.artist }}</td>
+            <td>{{ song.album }}</td>
+            <td>{{ song.duration ? song.duration + ' min' : 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
