@@ -26,7 +26,7 @@
     <ul class="nav-links d-none d-md-flex justify-content-center mx-auto">
       <li><a href="#">Inicio</a></li>
       <li><a href="/song-list">Canciones</a></li>
-      <li><a href="#">Playlists</a></li>
+      <li><a href="/playlist">Playlists</a></li>
       <li><a href="/albums">Álbumes</a></li>
       <li><a href="/about-us">Nosotros</a></li>
       <li *ngIf="isAdmin">
@@ -38,8 +38,9 @@
   <!-- Enlaces móviles -->
   <ul class="nav-links mobile-menu d-md-none">
     <li><a href="#">Inicio</a></li>
-    <li><a href="/song-list">Canciones</a></li>
-    <li><a href="#">Playlists</a></li>
+
+    <li><a href="/song-list">Mis Canciones</a></li>
+    <li><a href="/playlist">Playlists</a></li>
     <li><a href="/albums">Álbumes</a></li>
     <li><a href="/about-us">Nosotros</a></li>
     <li *ngIf="isAdmin">

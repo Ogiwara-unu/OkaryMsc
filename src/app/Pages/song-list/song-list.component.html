@@ -4,7 +4,6 @@
   <div class="d-flex flex-column min-vh-100">
     <main class="flex-grow-1">
       <div class="song-list-container">
-
         <button *ngIf="isAdmin" class="add-song-button" (click)="openAddSongModal()" title="Agregar canción">
           <i class="fas fa-plus"></i>
         </button>
@@ -16,13 +15,9 @@
           <p>Cargando canciones...</p>
         </div>
 
-        <div *ngIf="error" class="error-message">
-          {{ error }}
-          <button mat-raised-button color="primary" (click)="loadSongs()">Reintentar</button>
-        </div>
 
-        <div *ngIf="!loading && !error" class="songs-table-wrapper table-responsive">
-          <table class="songs-table table">
+        <div *ngIf="!loading && !error" class="songs-table-wrapper">
+          <table class="songs-table">
             <thead>
               <tr>
                 <th>#</th>
@@ -45,35 +40,38 @@
                 </td>
                 <td>{{ song.album || 'Sin álbum' }}</td>
                 <td>{{ formatDuration(song.duration) }}</td>
-
                 <td *ngIf="isAdmin" class="actions-cell">
                   <div class="button-group">
                     <button class="icon-button edit-button" title="Editar" (click)="onEditSong(song)">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </button>
-                    <button class="icon-button delete-button" title="Eliminar" (click)="onDeleteSong(song.id)">
+                    <button class="icon-button delete-button" title="Eliminar" (click)="onDeleteSong(song)">
                       <i class="fa-solid fa-trash"></i>
                     </button>
                   </div>
                 </td>
-
-
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </main>
-
-    <app-footer></app-footer>
   </div>
 
-  <!-- Modal de actualización -->
-  <app-update-song-modal *ngIf="showUpdateModal" [song]="selectedSong" (close)="showUpdateModal = false"
-    (updateSuccess)="onUpdateSuccess($event)">
-  </app-update-song-modal>
-
-  <!-- Modal de agregar -->
-  <app-add-song-modal *ngIf="showAddModal" (close)="showAddModal = false" (addSuccess)="onAddSuccess($event)">
-  </app-add-song-modal>
 </body>
+
+
+<!-- Modal de actualización -->
+<app-update-song-modal *ngIf="showUpdateModal" [song]="selectedSong" (close)="showUpdateModal = false"
+  (updateSuccess)="onUpdateSuccess($event)">
+</app-update-song-modal>
+
+<!-- Modal de agregar -->
+<app-add-song-modal *ngIf="showAddModal" (close)="showAddModal = false" (addSuccess)="onAddSuccess($event)">
+</app-add-song-modal>
+
+
+<app-song-info-modal *ngIf="showInfoModal" [song]="songToShow" (close)="closeSongInfoModal()">
+</app-song-info-modal>
+
+<app-footer></app-footer>

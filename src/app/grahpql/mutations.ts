@@ -131,4 +131,78 @@ export const UPDATE_ALBUM_PHOTO_MUTATION = gql`
   }
 `;
 
+export const CREATE_PLAYLIST_MUTATION = gql`
+  mutation CreatePlaylist($input: PlaylistInput!) {
+    crearPlaylist(input: $input) {
+      id
+      name
+      description
+      user {
+        id
+        username
+      }
+      canciones {
+        id
+        title
+      }
+    }
+  }
+`;
+
+// Actualizar Playlist
+export const UPDATE_PLAYLIST_MUTATION = gql`
+  mutation UpdatePlaylist($id: ID!, $input: PlaylistInput!) {
+    actualizarPlaylist(id: $id, input: $input) {
+      id
+      name
+      description
+      user {
+        id
+        username
+      }
+      canciones {
+        id
+        title
+      }
+    }
+  }
+`;
+
+// Eliminar Playlist
+export const DELETE_PLAYLIST_MUTATION = gql`
+  mutation DeletePlaylist($id: ID!) {
+    eliminarPlaylist(id: $id) {
+      id
+      name
+    }
+  }
+`;
+
+// Agregar Canción a Playlist
+export const ADD_SONG_TO_PLAYLIST_MUTATION = gql`
+  mutation AddSongToPlaylist($playlistId: ID!, $songId: ID!) {
+    agregarCancionAPlaylist(playlistId: $playlistId, songId: $songId) {
+      id
+      name
+      canciones {
+        id
+        title
+      }
+    }
+  }
+`;
+
+// Quitar Canción de Playlist
+export const REMOVE_SONG_FROM_PLAYLIST_MUTATION = gql`
+  mutation RemoveSongFromPlaylist($playlistId: ID!, $songId: ID!) {
+    quitarCancionDePlaylist(playlistId: $playlistId, songId: $songId) {
+      id
+      name
+      canciones {
+        id
+        title
+      }
+    }
+  }
+`;
 

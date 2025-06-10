@@ -1,0 +1,18 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="close.emit()">&times;</button>
+    <div class="song-info-modal-body">
+      <img [src]="getImageUrl(song?.photo)" alt="Portada" class="song-modal-img" />
+      <h2>{{ song?.title }}</h2>
+      <p><strong>Artista:</strong> {{ song?.artist || 'Desconocido' }}</p>
+      <p><strong>Álbum:</strong> {{ song?.album || 'Sin álbum' }}</p>
+      <p><strong>Duración:</strong> {{ song?.duration ? (song.duration / 60 | number:'1.0-0') + ' min' : '--:--' }}</p>
+      <p *ngIf="song?.genre"><strong>Género:</strong> {{ song.genre }}</p>
+      <p *ngIf="song?.year"><strong>Año:</strong> {{ song.year }}</p>
+      <div *ngIf="song?.lyrics" class="lyrics-section">
+        <h3>Letra</h3>
+        <pre class="lyrics">{{ song.lyrics }}</pre>
+      </div>
+    </div>
+  </div>
+</div>
