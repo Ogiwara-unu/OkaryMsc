@@ -8,7 +8,9 @@ export const GET_SONGS_QUERY = gql`
         title
         artist
         album
+        genre
         duration
+        lyrics
         photo
       }
     }

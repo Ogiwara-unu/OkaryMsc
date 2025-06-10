@@ -70,4 +70,10 @@
   (addSuccess)="onAddSuccess($event)">
 </app-add-song-modal>
 
+<app-song-info-modal
+  *ngIf="showInfoModal"
+  [song]="songToShow"
+  (close)="closeSongInfoModal()">
+</app-song-info-modal>
+
 <app-footer></app-footer>
