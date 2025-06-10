@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UpdateSongModalComponent } from '../../Components/update-song-modal/update-song-modal.component';
 import { AddSongModalComponent } from '../../Components/add-song-modal/add-song-modal.component';
 import Swal from 'sweetalert2';
+import { SongInfoModalComponent } from '../../Components/song-info-modal/song-info-modal.component';
 
 @Component({
   selector: 'app-song-list',
@@ -25,7 +26,8 @@ import Swal from 'sweetalert2';
     NavbarComponent,
     FooterComponent,
     UpdateSongModalComponent,
-    AddSongModalComponent
+    AddSongModalComponent,
+    SongInfoModalComponent
   ],
   templateUrl: './song-list.component.html',
   styleUrls: ['./song-list.component.css']
@@ -39,6 +41,8 @@ export class SongListComponent implements OnInit {
   showUpdateModal = false;
   selectedSong: any = null;
   showAddModal = false;
+  showInfoModal = false;
+  songToShow: any = null;
 
   constructor(
     private songService: SongService,
@@ -139,4 +143,18 @@ export class SongListComponent implements OnInit {
     this.showAddModal = false;
     this.showAlert('success', 'Canción agregada exitosamente');
   }
+
+
+  
+  openSongInfoModal(song: any) {
+    this.songToShow = song;
+    this.showInfoModal = true;
+  }
+
+  closeSongInfoModal() {
+    this.showInfoModal = false;
+    this.songToShow = null;
+  }
 }
+
+

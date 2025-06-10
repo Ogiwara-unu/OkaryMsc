@@ -29,30 +29,29 @@
             <th *ngIf="isAdmin">Acciones</th>
           </tr>
         </thead>
-        <tbody>
-          <tr *ngFor="let song of songs; index as i">
-            <td>{{ i + 1 }}</td>
-            <td class="title-cell">
-              <img [src]="getImageUrl(song.photo)" alt="{{ song.title }}"
-                onerror="this.src='assets/img/default-image.jpeg'" />
-              <div class="title-info">
-                <strong>{{ song.title }}</strong>
-                <br>
-                <span>{{ song.artist || 'Desconocido' }}</span>
-              </div>
-            </td>
-            <td>{{ song.album || 'Sin álbum' }}</td>
-            <td>{{ formatDuration(song.duration) }}</td>
-            <td *ngIf="isAdmin" class="actions-cell">
-              <button class="icon-button edit-button" title="Editar" (click)="onEditSong(song)">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </button>
-              <button class="icon-button delete-button" title="Eliminar" (click)="onDeleteSong(song.id)">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
+       <tbody>
+  <tr *ngFor="let song of songs; index as i" (click)="openSongInfoModal(song)" style="cursor:pointer;">
+    <td>{{ i + 1 }}</td>
+    <td class="title-cell">
+      <img [src]="getImageUrl(song.photo)" alt="{{ song.title }}"
+        onerror="this.src='assets/img/default-image.jpeg'" />
+      <div class="title-info">
+        <strong>{{ song.title }}</strong>
+        <span>{{ song.artist || 'Desconocido' }}</span>
+      </div>
+    </td>
+    <td>{{ song.album || 'Sin álbum' }}</td>
+    <td>{{ formatDuration(song.duration) }}</td>
+    <td *ngIf="isAdmin" class="actions-cell">
+      <button class="icon-button edit-button" title="Editar" (click)="onEditSong(song); $event.stopPropagation()">
+        <i class="fa-solid fa-pen-to-square"></i>
+      </button>
+      <button class="icon-button delete-button" title="Eliminar" (click)="onDeleteSong(song.id); $event.stopPropagation()">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </td>
+  </tr>
+</tbody>
       </table>
     </div>
   </div>
@@ -70,5 +69,11 @@
   (close)="showAddModal = false"
   (addSuccess)="onAddSuccess($event)">
 </app-add-song-modal>
+
+<app-song-info-modal
+  *ngIf="showInfoModal"
+  [song]="songToShow"
+  (close)="closeSongInfoModal()">
+</app-song-info-modal>
 
 <app-footer></app-footer>
