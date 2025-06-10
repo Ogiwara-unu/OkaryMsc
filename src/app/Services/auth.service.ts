@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError,BehaviorSubject } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { CREATE_USER_MUTATION } from '../grahpql/mutations';
 import { Apollo } from 'apollo-angular';
+
 
 interface User {
   id: string;
@@ -23,15 +24,22 @@ interface AuthResponse {
 export class AuthService {
   private readonly baseUrl = 'http://localhost:9001';
   private currentUser: any;
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient, private apollo: Apollo) {
     const userData = sessionStorage.getItem('user');
     this.currentUser = userData ? JSON.parse(userData) : null;
+    this.currentUserSubject.next(userData ? JSON.parse(userData) : null);
    }
 
    isAdmin(): boolean {
     return this.currentUser?.role == 'admin';
+    return this.currentUserSubject.value?.role === 'admin';
    }
+
+    get currentUser$(): Observable<User | null> {
+    return this.currentUserSubject.asObservable();
+    }
 
   
   register(username: string, email: string, password: string): Observable<any> {
@@ -78,6 +86,7 @@ export class AuthService {
       tap((res: AuthResponse) => {
         sessionStorage.setItem('token', res.token);
         sessionStorage.setItem('user', JSON.stringify(res.user));
+         this.currentUserSubject.next(res.user);
       })
     );
   }
@@ -85,6 +94,7 @@ export class AuthService {
   logout(): void {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('user');
+    this.currentUserSubject.next(null);
   }
 
   getCurrentUser(): User | null {

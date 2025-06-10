@@ -22,6 +22,17 @@ export const UPDATE_USER_MUTATION = gql`
   }
 `;
 
+export const ADD_USER_MUTATION = gql`
+  mutation AddUser($input: UsuarioInput!) {
+    crearUsuario(input: $input) {
+      id
+      username
+      email
+      role
+    }
+  }
+`;
+
 export const DELETE_USER_MUTATION = gql`
   mutation DeleteUser($id: ID!) {
     eliminarUsuario(id: $id) {
