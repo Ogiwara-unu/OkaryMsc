@@ -1,0 +1,70 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="onClose()">&times;</button>
+    
+    <div class="header">
+      <h2>Actualizar Canción</h2>
+    </div>
+
+    <div class="scrollable-content">
+      <form (ngSubmit)="submit()" [formGroup]="form">
+
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" formControlName="title" required>
+        </div>
+
+        <div class="form-group">
+          <label>Artista</label>
+          <input type="text" formControlName="artist" required>
+        </div>
+
+        <div class="form-group">
+          <label>Álbum</label>
+          <input type="text" formControlName="album">
+        </div>
+
+        <div class="form-group">
+          <label>Género</label>
+          <input type="text" formControlName="genre">
+        </div>
+
+        <div class="form-group">
+          <label>Duración (segundos)</label>
+          <input type="number" formControlName="duration" min="1">
+        </div>
+
+        <div class="form-group">
+          <label>Letra</label>
+          <textarea formControlName="lyrics" rows="4"></textarea>
+        </div>
+
+        <!-- Imagen -->
+         <div class="form-group">
+        <label>Imagen de portada</label>
+        <div class="image-upload-container">
+          <label for="file-upload-update" class="upload-button">
+            <i class="fas fa-cloud-upload-alt"></i> Cambiar imagen
+          </label>
+          <input id="file-upload-update" type="file" accept="image/*" (change)="onFileSelected($event)">
+          
+          <div class="image-preview" *ngIf="previewUrl || form.value.photo">
+            <img [src]="previewUrl || ('http://localhost:9001/images/songs/' + form.value.photo)" alt="Vista previa">
+            <button type="button" class="remove-image" (click)="removeImage()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+        <div class="button">
+          <button type="submit" [disabled]="isLoading || form.invalid">
+            {{ isLoading ? 'Cargando...' : 'Actualizar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

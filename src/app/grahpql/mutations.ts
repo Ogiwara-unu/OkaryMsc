@@ -32,3 +32,40 @@ export const DELETE_USER_MUTATION = gql`
     }
   }
 `;
+export const UPDATE_SONG_MUTATION = gql`
+  mutation UpdateSong($id: ID!, $input: CancionInput!) {
+    actualizarCancion(id: $id, input: $input) {
+      id
+      title
+      artist
+      album
+      genre
+      duration
+      lyrics
+      photo
+    }
+  }
+`;
+export const UPLOAD_SONG_IMAGE_MUTATION = gql`
+  mutation UploadSongImage($file: Upload!) {
+    uploadSongImage(file: $file) {
+      filename
+      url
+    }
+  }
+`;
+
+export const ADD_SONG_MUTATION = gql`
+  mutation AddSong($input: CancionInput!) {
+    crearCancion(input: $input) {
+      id
+      title
+      artist
+      album
+      genre
+      duration
+      lyrics
+      photo
+    }
+  }
+`;

@@ -23,7 +23,14 @@ export const GET_SONG_IMAGE_QUERY = gql`
     }
   }
 `;
-
+export const DELETE_SONG_MUTATION = gql`
+  mutation DeleteSong($id: ID!) {
+    eliminarCancion(id: $id) {
+      id
+      title
+    }
+  }
+`;
 export const GET_USER_BY_ID_QUERY = gql`
   query GetUserById($id: ID!) {
     usuario(id: $id) {
