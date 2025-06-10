@@ -3,11 +3,13 @@ import { HomeComponent } from './Pages/home/home.component';
 import { AboutUsComponent } from './Components/about-us/about-us.component';
 import { ErrorComponent } from './Components/error/error.component';
 import { SongListComponent } from './Pages/song-list/song-list.component';
+import { UserAdministrationComponent } from './Components/user-administration/user-administration.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about-us', component: AboutUsComponent },
   { path: 'song-list', component: SongListComponent },
+  { path: 'user-administration', component: UserAdministrationComponent },
   { path: '**', component: ErrorComponent },
 ];

@@ -1,1 +1,53 @@
-<p>user-administration works!</p>
+<app-navbar></app-navbar>
+<div class="container">
+  <h2>Administración de Usuarios</h2>
+
+  <!-- Mensajes de estado -->
+  <div *ngIf="isLoading" class="loading">
+    Cargando usuarios...
+  </div>
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <table *ngIf="users.length > 0" class="users-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre de Usuario</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th> <!-- Nueva columna de acciones -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <button (click)="onDeleteUser(user.id)" class="delete-button">
+            Eliminar
+          </button>
+          <button class="actualizar" (click)="onEditUser(user.id)">Actualizar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!users.length && !isLoading && !error">
+    No hay usuarios disponibles.
+  </div>
+</div>
+
+<app-update-user-modal
+  *ngIf="showUpdateModal"
+  [userId]="selectedUserId"
+  (close)="showUpdateModal = false"
+  (updateSuccess)="onUpdateSuccess($event)">
+</app-update-user-modal>
+
+
+
