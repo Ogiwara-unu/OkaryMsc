@@ -1,6 +1,13 @@
 <app-navbar></app-navbar>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div class="container">
-  <h2>Administración de Usuarios</h2>
+  <div class="header-container">
+    <h2>Administración de Usuarios</h2>
+    <button (click)="openAddUserModal()" class="add-button">
+      Agregar Usuario
+    </button>
+    <button (click)="loadUsers()">Recargar manualmente</button>
+  </div>
 
   <!-- Mensajes de estado -->
   <div *ngIf="isLoading" class="loading">
@@ -18,7 +25,7 @@
         <th>Nombre de Usuario</th>
         <th>Email</th>
         <th>Rol</th>
-        <th>Acciones</th> <!-- Nueva columna de acciones -->
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -49,5 +56,8 @@
   (updateSuccess)="onUpdateSuccess($event)">
 </app-update-user-modal>
 
-
-
+<app-add-user-modal
+  *ngIf="showAddUserModal"
+  (close)="showAddUserModal = false"
+  (userAdded)="onUserAdded($event)">
+</app-add-user-modal>

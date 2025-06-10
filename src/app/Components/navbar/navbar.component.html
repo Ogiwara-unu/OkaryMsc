@@ -17,6 +17,9 @@
     <li><a href="#">Playlists</a></li>
     <li><a href="#">Álbumes</a></li>
     <li><a href="/about-us">Nosotros</a></li>
+    <li *ngIf="isAdmin">
+    <a href="/user-administration">Administración</a>
+    </li>
   </ul>
 
   <button class="search-btn" title="Buscar">

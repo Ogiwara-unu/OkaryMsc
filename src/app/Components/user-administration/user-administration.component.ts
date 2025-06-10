@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersService } from '../../Services/users.service'; 
 import { NavbarComponent } from '../navbar/navbar.component';
 import { UpdateUserModalComponent } from '../update-user-modal/update-user-modal.component';
+import { AddUserModalComponent } from '../add-user-modal/add-user-modal.component';
 import { NgIf } from '@angular/common';
 
 interface User {
@@ -15,7 +16,7 @@ interface User {
 @Component({
   selector: 'app-user-administration',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, NgIf, UpdateUserModalComponent],
+  imports: [CommonModule, NavbarComponent, NgIf, UpdateUserModalComponent, AddUserModalComponent],
   templateUrl: './user-administration.component.html',
   styleUrl: './user-administration.component.css'
 })
@@ -26,21 +27,26 @@ export class UserAdministrationComponent implements OnInit {
 
   showUpdateModal = false;
   selectedUserId: string | null = null;  
+  showAddUserModal = false;
 
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.loadUsers();
   }
 
   loadUsers() {
+    console.log('Iniciando carga de usuarios');
     this.isLoading = true;
     this.usersService.getUsers(20).subscribe({
       next: (users) => {
-        this.users = users;
+        console.log('Usuarios recibidos:', users);
+        this.users = [...users];
+        this.cdr.detectChanges(); 
         this.isLoading = false;
       },
       error: (err) => {
+        console.error('Error al cargar usuarios:', err);
         this.error = err.message;
         this.isLoading = false;
       }
@@ -63,7 +69,6 @@ export class UserAdministrationComponent implements OnInit {
     }
   }
 
-  // Método para abrir el modal de actualización
   onEditUser(id: string) {
     console.log(id);
     this.selectedUserId = id;
@@ -71,10 +76,23 @@ export class UserAdministrationComponent implements OnInit {
   }
 
   onUpdateSuccess(updatedUser: User) {
-  this.users = this.users.map(u => 
-    u.id === updatedUser.id ? updatedUser : u
-  );
-  this.showUpdateModal = false;
-}
+    this.users = this.users.map(u => 
+      u.id === updatedUser.id ? updatedUser : u
+    );
+    this.showUpdateModal = false;
+  }
 
+  // Método para abrir el modal de agregar usuario
+  openAddUserModal() {
+    this.showAddUserModal = true;
+  }
+
+  // Método para manejar cuando se agrega un usuario
+  onUserAdded(newUser: User) {
+    console.log(newUser);
+    this.users = [...this.users, newUser]; 
+    console.log('zunga')
+    this.showAddUserModal = false;
+    this.cdr.detectChanges(); // Forzar la detección de cambios
+  }
 }

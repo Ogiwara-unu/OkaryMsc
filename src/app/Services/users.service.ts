@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { GET_USERS_QUERY, GET_USER_BY_ID_QUERY } from '../grahpql/queries';
-import { CREATE_USER_MUTATION, UPDATE_USER_MUTATION, DELETE_USER_MUTATION } from '../grahpql/mutations';
+import { CREATE_USER_MUTATION, UPDATE_USER_MUTATION, DELETE_USER_MUTATION,ADD_USER_MUTATION } from '../grahpql/mutations';
 
 interface User {
   id: string;
@@ -74,18 +74,31 @@ export class UsersService {
   }
 
   createUser(input: { username: string; email: string; password: string; role?: string }): Observable<User> {
-    return this.apollo.mutate<any>({
-      mutation: CREATE_USER_MUTATION,
-      variables: { input }
+  const token = sessionStorage.getItem('token');
+  return this.apollo.mutate<any>({
+    mutation: ADD_USER_MUTATION,
+    variables: {
+      input: {
+        username: input.username,  
+        email: input.email,      
+        password: input.password, 
+        role: input.role || 'user' 
+      }
+    },
+    context: {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  })
+  .pipe(
+    map(result => result.data.crearUsuario),
+    catchError(error => {
+      console.error('Error al crear el usuario:', error);
+      return throwError(() => new Error('Error al crear el usuario'));
     })
-    .pipe(
-      map(result => result.data.crearUsuario),
-      catchError(error => {
-        console.error('Error al crear el usuario:', error);
-        return throwError(() => new Error('Error al crear el usuario'));
-      })
-    );
-  }
+  );
+}
 
   updateUser(id: string, input: { username: string; email: string; role?: string }): Observable<User> {
     const token = sessionStorage.getItem('token');

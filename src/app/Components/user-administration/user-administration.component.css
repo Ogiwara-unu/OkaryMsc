@@ -1,7 +1,9 @@
 .container {
+  position: relative;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  margin: 0 auto;
 }
 
 .loading {
@@ -26,4 +28,41 @@
 
 .users-table th {
   background-color: #f4f4f4;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Estilos para el botón Agregar */
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+.add-button i {
+  font-size: 14px;
+}
+
+
+.add-button::before {
+  content: "+";
+  margin-right: 5px;
+  font-weight: bold;
 }
