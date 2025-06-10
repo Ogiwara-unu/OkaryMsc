@@ -33,3 +33,11 @@
 .social-icons a:hover {
   color: #9ea59a;
 }
+
+/* Responsive mejora para pantallas grandes */
+@media (min-width: 768px) {
+  .footer-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}

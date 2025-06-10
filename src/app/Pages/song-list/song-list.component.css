@@ -1,11 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
 
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  flex: 1;
+}
+
 /* Contenedor principal */
 .song-list-container {
   padding: 20px 20px 0 20px;
   max-width: 100%;
   margin: 0 auto;
 }
+
 /* Botón flotante para agregar canciones */
 .add-song-button {
   position: fixed;
@@ -33,20 +45,20 @@
 }
 
 .add-song-button i {
-  margin-top: 2px; /* Ajuste fino para centrar el icono */
-}
-.song-list-container h2{
-    color: #BBC0BA;
-    font-family: 'Jockey One', sans-serif;
-    font-size: 46px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-    text-align: center;
-
+  margin-top: 2px;
 }
 
-/* Tabla de canciones */
+.song-list-container h2 {
+  color: #BBC0BA;
+  font-family: 'Jockey One', sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Tabla */
 .songs-table {
   width: 100%;
   table-layout: fixed;
@@ -55,33 +67,31 @@
   font-family: 'Roboto', sans-serif;
 }
 
-/* Cabecera de la tabla */
 .songs-table thead {
   background-color: #E6DED3;
   border-bottom: none;
 }
 
-/* Filas y celdas */
 .songs-table tr {
-  height: 70px; 
+  height: 70px;
   border-bottom: 1px solid #E6DED3;
 }
 
-.songs-table th, 
+.songs-table th,
 .songs-table td {
   padding: 8px 14px;
   text-align: left;
-  vertical-align: middle; /* Centrado vertical */
+  vertical-align: middle;
   box-sizing: border-box;
 }
 
-/* Celda del título (imagen + texto) */
+/* Columna título */
 .title-cell {
   display: flex;
   align-items: center;
   gap: 12px;
-  height: 100%;
-  min-width: 0; 
+  min-width: 0;
+  border: none;
 }
 
 .title-cell img {
@@ -93,7 +103,7 @@
 }
 
 .title-info {
-  min-width: 0; 
+  min-width: 0;
 }
 
 .title-info strong {
@@ -103,7 +113,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   color: #BBC0BA;
-  margin-bottom: 0;
 }
 
 .title-info span {
@@ -113,16 +122,21 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-top: 0;
 }
 
-/* Celda de duración */
+/* Celda duración */
 .songs-table td:nth-child(4) {
-  font-family: monospace; /* Para alinear números mejor */
+  font-family: monospace;
 }
 
-/* Celda de acciones */
+/* Acciones */
 .actions-cell {
+  vertical-align: middle !important; /* fuerza alineación */
+  padding: 0 14px;
+  
+}
+
+.button-group {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -135,6 +149,8 @@
   color: #666;
   font-size: 16px;
   cursor: pointer;
+  padding: 0;
+  margin: 0;
   display: flex;
   align-items: center;
 }
@@ -172,12 +188,12 @@
   .songs-table {
     font-size: 13px;
   }
-  
+
   .title-cell img {
     width: 36px;
     height: 36px;
   }
-  
+
   .icon-button {
     font-size: 15px;
   }

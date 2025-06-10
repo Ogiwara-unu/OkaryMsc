@@ -3,10 +3,11 @@
         <button class="close-button" (click)="close.emit()">&times;</button>
         <div class="header">
             <img src="assets/img/okarys-logo.png" alt="OKARYS Music" />
-            <h2>Únete a nosotros</h2>
+            <h2>Agregar Usuario</h2>
         </div>
-
-        <form (ngSubmit)="submit()" [formGroup]="form">
+        
+        <div class="scrollable-content">
+             <form (ngSubmit)="submit()" [formGroup]="form">
             <div class="form-group">
                 <label>Nombre de usuario</label>
                 <input type="text" formControlName="username" placeholder="Ej: musiclover123">
@@ -59,5 +60,7 @@
                 </button>
             </div>
         </form>
+        </div>
+       
     </div>
 </div>

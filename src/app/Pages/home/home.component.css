@@ -191,7 +191,7 @@ body {
 
 .logout-button {
     padding: 10px 15px;
-    background-color: #dc3545;
+    background-color: #9ea59a;
     color: white;
     border: none;
     border-radius: 5px;
@@ -205,7 +205,7 @@ body {
 }
 
 .logout-button:hover {
-    background-color: #c82333;
+    background-color: #BBC0BA;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
@@ -226,4 +226,91 @@ body {
 .music-section img{
     width: 100%;
     border-radius: 12px;
+}
+
+/* --- RESPONSIVE STYLES --- */
+@media (max-width: 768px) {
+
+  .hero-card {
+    padding: 20px;
+    max-width: 95%;
+  }
+
+  .hero-card h1 {
+    font-size: 36px;
+  }
+
+  .hero-card p {
+    font-size: 16px;
+    text-align: left;
+  }
+
+  .logo img {
+    width: 120px;
+  }
+
+  .auth-buttons {
+    top: 15px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .auth-buttons button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .welcome-message {
+    font-size: 14px;
+    top: 15px;
+    right: 15px;
+    padding: 6px 10px;
+  }
+
+  .search-bar-section {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .search-bar input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .divider {
+    font-size: 18px;
+  }
+
+  .explore-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .subtext {
+    font-size: 20px;
+    padding: 0 10px;
+  }
+
+  .playlist-button {
+    font-size: 16px;
+    padding: 10px 16px;
+  }
+
+  .logout-button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .music-section {
+    margin: 2rem auto;
+    max-width: 95%;
+  }
+
+  .music-section img {
+    border-radius: 8px;
+  }
 }

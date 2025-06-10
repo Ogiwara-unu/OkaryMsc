@@ -1,53 +1,68 @@
 <app-navbar></app-navbar>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<div class="container">
-  <div class="header-container">
-    <h2>Administración de Usuarios</h2>
-    <button (click)="openAddUserModal()" class="add-button">
-      Agregar Usuario
-    </button>
-    <button (click)="loadUsers()">Recargar manualmente</button>
-  </div>
+<body>
+  <div class="d-flex flex-column min-vh-100">
+  <main class="flex-grow-1">
+    <div class="song-list-container">
+      <button class="add-song-button" (click)="openAddUserModal()" title="Agregar usuario">
+        <i class="fas fa-plus"></i>
+      </button>
 
-  <!-- Mensajes de estado -->
-  <div *ngIf="isLoading" class="loading">
-    Cargando usuarios...
-  </div>
-  <div *ngIf="error" class="error">
-    {{ error }}
-  </div>
+      <h2>Administración de Usuarios</h2>
 
-  <!-- Tabla de usuarios -->
-  <table *ngIf="users.length > 0" class="users-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre de Usuario</th>
-        <th>Email</th>
-        <th>Rol</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.id }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.role }}</td>
-        <td>
-          <button (click)="onDeleteUser(user.id)" class="delete-button">
-            Eliminar
-          </button>
-          <button class="actualizar" (click)="onEditUser(user.id)">Actualizar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <div *ngIf="isLoading" class="loading-spinner">
+        <mat-spinner></mat-spinner>
+        <p>Cargando usuarios...</p>
+      </div>
 
-  <div *ngIf="!users.length && !isLoading && !error">
-    No hay usuarios disponibles.
-  </div>
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+        <button mat-raised-button color="primary" (click)="loadUsers()">Reintentar</button>
+      </div>
+
+      <div *ngIf="!isLoading && !error" class="songs-table-wrapper table-responsive">
+        <table class="songs-table table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.id }}</td>
+              <td class="title-cell">
+                  {{ user.username}}
+              </td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.role }}</td>
+              <td class="actions-cell">
+                <div class="button-group">
+                  <button class="icon-button edit-button" title="Editar" (click)="onEditUser(user.id)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button class="icon-button delete-button" title="Eliminar" (click)="onDeleteUser(user.id)">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="!users.length && !isLoading && !error">
+        No hay usuarios disponibles.
+      </div>
+    </div>
+  </main>
+
+  
 </div>
+</body>
+
 
 <app-update-user-modal
   *ngIf="showUpdateModal"
@@ -61,3 +76,6 @@
   (close)="showAddUserModal = false"
   (userAdded)="onUserAdded($event)">
 </app-add-user-modal>
+
+
+<app-footer></app-footer>

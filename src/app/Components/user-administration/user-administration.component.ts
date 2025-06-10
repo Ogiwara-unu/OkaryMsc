@@ -4,6 +4,8 @@ import { UsersService } from '../../Services/users.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { UpdateUserModalComponent } from '../update-user-modal/update-user-modal.component';
 import { AddUserModalComponent } from '../add-user-modal/add-user-modal.component';
+import { FooterComponent } from '../footer/footer.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
 
 interface User {
@@ -16,7 +18,16 @@ interface User {
 @Component({
   selector: 'app-user-administration',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, NgIf, UpdateUserModalComponent, AddUserModalComponent],
+  imports: [
+    CommonModule, 
+    NavbarComponent, 
+    NgIf, 
+    UpdateUserModalComponent, 
+    AddUserModalComponent,
+    MatProgressSpinnerModule,
+    FooterComponent
+  
+  ],
   templateUrl: './user-administration.component.html',
   styleUrl: './user-administration.component.css'
 })

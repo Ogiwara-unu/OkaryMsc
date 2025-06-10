@@ -1,68 +1,160 @@
-.container {
-  position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  margin: 0 auto;
-}
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
 
-.loading {
-  color: blue;
-}
-
-.error {
-  color: red;
-}
-
-.users-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.users-table th,
-.users-table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
-
-.users-table th {
-  background-color: #f4f4f4;
-}
-
-.header-container {
+html, body {
+  height: 100%;
+  margin: 0;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  flex-direction: column;
 }
 
-/* Estilos para el botón Agregar */
-.add-button {
-  background-color: #4CAF50;
+body {
+  flex: 1;
+}
+
+.song-list-container {
+  padding: 20px 20px 0 20px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.add-song-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #BBC0BA;
   color: white;
-  padding: 10px 15px;
   border: none;
-  border-radius: 4px;
+  font-size: 24px;
   cursor: pointer;
-  font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  transition: background-color 0.3s;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
-.add-button:hover {
-  background-color: #45a049;
+.add-song-button:hover {
+  background-color: #9ea59a;
+  transform: scale(1.1);
 }
 
-.add-button i {
-  font-size: 14px;
+.song-list-container h2 {
+  color: #BBC0BA;
+  font-family: 'Jockey One', sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-
-.add-button::before {
-  content: "+";
-  margin-right: 5px;
-  font-weight: bold;
+.songs-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
 }
+
+.songs-table thead th {
+  background-color: #E6DED3;
+  border-bottom: none;
+  color: #666;
+}
+
+.songs-table tr {
+  height: 70px;
+  border-bottom: 1px solid #E6DED3;
+}
+
+.songs-table th,
+.songs-table td {
+  padding: 8px 14px;
+  text-align: left;
+  vertical-align: middle;
+  box-sizing: border-box;
+  color: #444;
+  text-overflow: ellipsis;
+   overflow: hidden;
+}
+.songs-table-wrapper {
+  overflow-x: auto;
+}
+
+.title-cell {
+  color: #BBC0BA;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.actions-cell {
+  vertical-align: middle !important;
+  padding: 0 14px;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.icon-button:hover {
+  color: #333;
+}
+
+.edit-button:hover {
+  color: #1976d2;
+}
+
+.delete-button:hover {
+  color: #d32f2f;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.error-message {
+  background-color: #ffebee;
+  padding: 15px;
+  border-radius: 4px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .songs-table {
+    font-size: 13px;
+  }
+
+  .title-cell img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .icon-button {
+    font-size: 15px;
+  }
+}
+
