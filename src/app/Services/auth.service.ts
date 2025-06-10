@@ -22,10 +22,18 @@ interface AuthResponse {
 })
 export class AuthService {
   private readonly baseUrl = 'http://localhost:9001';
+  private currentUser: any;
 
-  constructor(private http: HttpClient, private apollo: Apollo) { }
+  constructor(private http: HttpClient, private apollo: Apollo) {
+    const userData = sessionStorage.getItem('user');
+    this.currentUser = userData ? JSON.parse(userData) : null;
+   }
 
-  // auth.service.ts - Versión mejorada
+   isAdmin(): boolean {
+    return this.currentUser?.role == 'admin';
+   }
+
+  
   register(username: string, email: string, password: string): Observable<any> {
     return this.apollo.mutate({
       mutation: CREATE_USER_MUTATION,

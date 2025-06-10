@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { SongService } from '../../Services/songs.service.spec';
+import { SongService } from '../../Services/songs.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule,  Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NavbarComponent } from '../../Components/navbar/navbar.component';
 import { FooterComponent } from '../../Components/footer/footer.component';
+import { AuthService } from '../../Services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-song-list',
@@ -15,8 +17,8 @@ import { FooterComponent } from '../../Components/footer/footer.component';
     CommonModule,
     RouterModule,
     MatCardModule,
-    MatButtonModule,
     MatProgressSpinnerModule,
+    MatIconModule,
     NavbarComponent,
     FooterComponent
   ],
@@ -27,11 +29,21 @@ export class SongListComponent implements OnInit {
   songs: any[] = [];
   loading = true;
   error: string | null = null;
+  isAdmin : boolean = false;
 
-  constructor(private songService: SongService) {}
+  constructor(
+    private songService: SongService, 
+    private router: Router,
+    private authService: AuthService
+
+  ) {}
 
   ngOnInit(): void {
+    this.checkUserRole();
     this.loadSongs();
+  }
+  checkUserRole():void {
+    this.isAdmin = this.authService.isAdmin();
   }
 
   loadSongs(): void {

@@ -6,40 +6,39 @@ import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache, ApolloLink } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideAnimations(),
-    MatCardModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
     provideRouter(routes),
     provideHttpClient(),
     provideApollo(() => {
       const httpLink = inject(HttpLink);
 
       // Middleware para añadir el token JWT como Bearer Token
-      const authLink = setContext((_, { headers }) => {
-        const token = localStorage.getItem('token'); // Asegúrate de guardar el token aquí después del login
+      const authLink = setContext((operation, { headers }) => {
+        const publicOperations = ['GetSongs', 'GetSongImage', 'GetAlbums', 'GetAlbumImage'];
+        
+        // Verifica si es una operación pública
+        if (operation.operationName && publicOperations.includes(operation.operationName)) {
+          return { headers };
+        }
+        
+        // Para operaciones no públicas, añade el token si existe
+        const token = sessionStorage.getItem('token');
         return {
           headers: {
             ...headers,
-            authorization: token ? `Bearer ${token}` : '', // Formato: "Bearer <token>"
+            authorization: token ? `Bearer ${token}` : '',
           },
         };
       });
 
       return {
-        link: authLink.concat(httpLink.create({
-          uri: 'http://localhost:9001/okaryMsc', // Endpoint de tu API
+        link: authLink.concat(httpLink.create({ 
+          uri: 'http://localhost:9001/okaryMsc',
         })),
         cache: new InMemoryCache(),
       };
     }),
   ],
-
 };

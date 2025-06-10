@@ -1,74 +1,58 @@
 <app-navbar></app-navbar>
+
 <body>
   <div class="song-list-container">
-  <h2>Lista de Canciones</h2>
-  
-  <div *ngIf="loading" class="loading-spinner">
-    <mat-spinner></mat-spinner>
-    <p>Cargando canciones...</p>
-  </div>
+    <h2>Canciones</h2>
 
-  <div *ngIf="error" class="error-message">
-    {{ error }}
-    <button mat-raised-button color="primary" (click)="loadSongs()">Reintentar</button>
-  </div>
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner></mat-spinner>
+      <p>Cargando canciones...</p>
+    </div>
 
-  <div *ngIf="!loading && !error" class="songs-grid">
-    <mat-card *ngFor="let song of songs" class="song-card">
-      <img 
-        mat-card-image 
-        [src]="getImageUrl(song.photo)" 
-        alt="Portada de {{ song.title }}"
-        onerror="this.src='assets/img/default-song.png'"
-      >
-      <mat-card-content>
-        <h3>{{ song.title }}</h3>
-        <p><strong>Artista:</strong> {{ song.artist || 'Desconocido' }}</p>
-        <p><strong>Álbum:</strong> {{ song.album || 'Sin álbum' }}</p>
-        <p><strong>Duración:</strong> {{ formatDuration(song.duration) }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" [routerLink]="['/songs', song.id]">
-          Ver detalles
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-</div><div class="song-list-container">
-  <h2>Lista de Canciones</h2>
-  
-  <div *ngIf="loading" class="loading-spinner">
-    <mat-spinner></mat-spinner>
-    <p>Cargando canciones...</p>
-  </div>
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+      <button mat-raised-button color="primary" (click)="loadSongs()">Reintentar</button>
+    </div>
 
-  <div *ngIf="error" class="error-message">
-    {{ error }}
-    <button mat-raised-button color="primary" (click)="loadSongs()">Reintentar</button>
-  </div>
+    <div *ngIf="!loading && !error" class="songs-table-wrapper">
+      <table class="songs-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Título</th>
+            <th>Álbum</th>
+            <th>Duración</th>
+            <th *ngIf="isAdmin">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let song of songs; index as i">
+            <td>{{ i + 1 }}</td>
+            <td class="title-cell">
+              <img [src]="getImageUrl(song.photo)" alt="{{ song.title }}"
+                onerror="this.src='assets/img/default-image.jpeg'" />
+              <div class="title-info">
+                <strong>{{ song.title }}</strong>
+                <br>
+                <span>{{ song.artist || 'Desconocido' }}</span>
+              </div>
+            </td>
+            <td>{{ song.album || 'Sin álbum' }}</td>
+            <td>{{ formatDuration(song.duration) }}</td>
+            <td *ngIf="isAdmin" class="actions-cell"> <!-- Solo muestra la celda si es admin -->
+              <button class="icon-button edit-button" title="Editar">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button class="icon-button delete-button" title="Eliminar">
+                <i class="fa-solid fa-trash"></i>
+              </button>
 
-  <div *ngIf="!loading && !error" class="songs-grid">
-    <mat-card *ngFor="let song of songs" class="song-card">
-      <img 
-        mat-card-image 
-        [src]="getImageUrl(song.photo)" 
-        alt="Portada de {{ song.title }}"
-        onerror="this.src='assets/img/default-song.png'"
-      >
-      <mat-card-content>
-        <h3>{{ song.title }}</h3>
-        <p><strong>Artista:</strong> {{ song.artist || 'Desconocido' }}</p>
-        <p><strong>Álbum:</strong> {{ song.album || 'Sin álbum' }}</p>
-        <p><strong>Duración:</strong> {{ formatDuration(song.duration) }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" [routerLink]="['/songs', song.id]">
-          Ver detalles
-        </button>
-      </mat-card-actions>
-    </mat-card>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 </body>
 
 <app-footer></app-footer>

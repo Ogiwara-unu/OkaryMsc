@@ -1,56 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 .song-list-container {
   padding: 20px;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
 }
 
 h2 {
   text-align: center;
+  color: #BBC0BA;
   margin-bottom: 30px;
-  color: #3f51b5;
+  font-family: 'Jockey One', sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: 2px;
 }
 
-.loading-spinner {
+.songs-table-wrapper {
+  overflow-x: auto;
+}
+
+.songs-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #444;
+  font-size: 14px;
+  table-layout: fixed;
+}
+
+.songs-table thead {
+  background-color: #E6DED3;
+}
+.songs-table tbody tr {
+  height: 72px; /* Permite crecimiento si hay más contenido */
+}
+.songs-table th,
+.songs-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #BBC0BA;
+    height: 72px;        /* Fuerza la misma altura */
+  box-sizing: border-box; /* Incluye padding en la altura */
+  vertical-align: middle; /* Alinea el contenido al centro vertical */
+}
+
+
+.songs-table tbody tr:hover {
+  background-color: #FCF9F2;
+}
+
+.title-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  
+  
+}
+.title-cell img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.title-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px 15px;
+}
+.title-info strong{
+  color: #9ea59a;
+}
+.loading-spinner,
+.error-message {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px;
+  padding: 20px;
 }
 
 .error-message {
+  background-color: #e8e6e6;
   color: #f44336;
-  text-align: center;
-  padding: 20px;
-  background-color: #ffebee;
   border-radius: 4px;
-  margin-bottom: 20px;
 }
-
-.songs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  padding: 10px;
-}
-
-.song-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.song-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-mat-card-content {
-  min-height: 120px;
-}
-
-mat-card-actions {
+.actions-cell {
   display: flex;
-  justify-content: center;
+  align-items: center;     /* Centra los botones verticalmente */
+  gap: 12px;
+  padding: 12px 15px !important; /* Fuerza el mismo padding */
+
 }
 
-img {
-  height: 200px;
-  object-fit: cover;
+/* Estilo base para los botones dentro de acciones */
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #444;
+  transition: color 0.2s ease;
+}
+
+.icon-button:hover {
+  color: #000;
+}
+
+.edit-button {
+  color: #4CAF50;
+}
+
+.delete-button {
+  color: #F44336;
 }
