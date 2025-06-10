@@ -80,3 +80,55 @@ export const ADD_SONG_MUTATION = gql`
     }
   }
 `;
+
+
+export const CREATE_ALBUM_MUTATION = gql`
+  mutation CreateAlbum($input: AlbumInput!) {
+    crearAlbum(input: $input) {
+      id
+      title
+      artist
+      year
+      genre
+      photo
+    }
+  }
+`;
+
+
+export const UPDATE_ALBUM_MUTATION = gql`
+  mutation UpdateAlbum($id: ID!, $input: AlbumInput!) {
+    actualizarAlbum(id: $id, input: $input) {
+      id
+      title
+      artist
+      year
+      genre
+      photo
+    }
+  }
+`;
+export const DELETE_ALBUM_MUTATION = gql`
+  mutation DeleteAlbum($id: ID!) {
+    eliminarAlbum(id: $id) {
+      id
+      title
+      artist
+      year
+      genre
+      photo
+    }
+  }
+`;
+
+// --- Mutation específica para actualizar solo la foto de un álbum ---
+export const UPDATE_ALBUM_PHOTO_MUTATION = gql`
+  mutation UpdateAlbumPhoto($id: ID!, $photo: String!) {
+    actualizarAlbumFoto(id: $id, photo: $photo) {
+      id
+      photo
+    }
+  }
+`;
+
+

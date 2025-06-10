@@ -54,3 +54,41 @@ export const GET_USERS_QUERY = gql`
     }
   }
 `;
+
+
+export const GET_ALBUMS_QUERY = gql`
+  query GetAlbums($limit: Int) {
+    albums(limit: $limit) {
+      items {
+        id
+        title
+        artist
+        year
+        genre
+        photo
+      }
+    }
+  }
+`;
+
+export const GET_ALBUM_BY_ID_QUERY = gql`
+  query GetAlbumById($id: ID!) {
+    album(id: $id) {
+      id
+      title
+      artist
+      year
+      genre
+      photo
+    }
+  }
+`;
+
+// Opcional: Query para obtener solo la foto de un álbum
+export const GET_ALBUM_PHOTO_QUERY = gql`
+  query GetAlbumPhoto($id: ID!) {
+    album(id: $id) {
+      photo
+    }
+  }
+`;
