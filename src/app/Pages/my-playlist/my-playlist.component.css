@@ -108,20 +108,12 @@ body {
 
 .title-info strong {
   display: block;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: #BBC0BA;
-}
-
-.title-info span {
-  display: block;
-  font-size: 12px;
-  color: #444;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 18px;
 }
 
 /* Celda duración */

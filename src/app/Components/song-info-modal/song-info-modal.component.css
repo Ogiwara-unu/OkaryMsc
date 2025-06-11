@@ -21,6 +21,7 @@
   min-width: 320px;
   max-width: 600px;
   position: relative;
+  max-height: 95vh;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 

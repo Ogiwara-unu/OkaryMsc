@@ -89,6 +89,69 @@ h3{
   height: 70px;
   border-bottom: 1px solid #E6DED3;
 }
+/* Agrega esto al final de tu archivo CSS */
+
+.action-btn {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.delete-btn {
+  background-color: #ff4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #cc0000;
+  transform: scale(1.05);
+}
+
+/* Mejora la tabla para dispositivos móviles */
+@media (max-width: 600px) {
+  .playlist-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .action-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+
+/* Asegura que las columnas tengan un ancho adecuado */
+.playlist-table th:nth-child(1),
+.playlist-table td:nth-child(1) {
+  width: 25%;
+}
+
+.playlist-table th:nth-child(2),
+.playlist-table td:nth-child(2) {
+  width: 20%;
+}
+
+.playlist-table th:nth-child(3),
+.playlist-table td:nth-child(3) {
+  width: 20%;
+}
+
+.playlist-table th:nth-child(4),
+.playlist-table td:nth-child(4) {
+  width: 15%;
+}
+
+.playlist-table th:nth-child(5),
+.playlist-table td:nth-child(5) {
+  width: 20%;
+  text-align: center;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
