@@ -24,7 +24,7 @@
                 <th>Título</th>
                 <th>Álbum</th>
                 <th>Duración</th>
-                <th *ngIf="isAdmin">Acciones</th>
+                <th *ngIf="isLoggedIn">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -42,13 +42,16 @@
                 </td>
                 <td>{{ song.album || 'Sin álbum' }}</td>
                 <td>{{ formatDuration(song.duration) }}</td>
-                <td *ngIf="isAdmin" class="actions-cell">
+                <td *ngIf="isLoggedIn" class="actions-cell">
                   <div class="button-group">
-                    <button class="icon-button edit-button" title="Editar" (click)="onEditSong(song); $event.stopPropagation()">
+                    <button *ngIf="isAdmin" class="icon-button edit-button" title="Editar" (click)="onEditSong(song); $event.stopPropagation()">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </button>
-                    <button class="icon-button delete-button" title="Eliminar" (click)="onDeleteSong(song.id);  $event.stopPropagation()">
+                    <button *ngIf="isAdmin" class="icon-button delete-button" title="Eliminar" (click)="onDeleteSong(song.id);  $event.stopPropagation()">
                       <i class="fa-solid fa-trash"></i>
+                    </button>
+                     <button *ngIf="isLoggedIn" class="icon-button " title="Eliminar" (click)="onDeleteSong(song.id);  $event.stopPropagation()">
+                      <i class="fa-solid fa-pen-to-square"></i>
                     </button>
                   </div>
                 </td>

@@ -13,6 +13,7 @@ import { UpdateSongModalComponent } from '../../Components/update-song-modal/upd
 import { AddSongModalComponent } from '../../Components/add-song-modal/add-song-modal.component';
 import Swal from 'sweetalert2';
 import { SongInfoModalComponent } from '../../Components/song-info-modal/song-info-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-song-list',
@@ -37,6 +38,8 @@ export class SongListComponent implements OnInit {
   loading = true;
   error: string | null = null;
   isAdmin: boolean = false;
+  isLoggedIn = false;
+  private subscription!: Subscription;
 
   showUpdateModal = false;
   selectedSong: any = null;
@@ -53,9 +56,16 @@ export class SongListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.subscription = this.authService.currentUser$.subscribe(user => {
+    this.isAdmin = user?.role === 'admin';
+    this.isLoggedIn = !!user; 
+    console.log(this.isAdmin ? 'El usuario logeado es admin' : 'El usuario logeado no es admin');
     this.checkUserRole();
     this.loadSongs();
+  });
   }
+
+  
 
   checkUserRole(): void {
     this.isAdmin = this.authService.isAdmin();
