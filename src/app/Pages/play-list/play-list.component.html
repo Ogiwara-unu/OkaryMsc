@@ -1,38 +1,39 @@
 <app-navbar></app-navbar>
 
-<div class="playList-list-container">
-  <button class="add-playList-button" title="Agregar playlist">
-    <i class="fas fa-plus"></i>
-  </button>
+<body>
+  <div class="playList-list-container">
+    
 
-  <h2>Playlists</h2>
+    <h2>Playlists</h2>
 
-  <div *ngIf="loading" class="loading-spinner">
-    <mat-spinner></mat-spinner>
-    <p>Cargando playlists...</p>
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner></mat-spinner>
+      <p>Cargando playlists...</p>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+      <button (click)="loadPlaylists()">Reintentar</button>
+    </div>
+
+    <table *ngIf="!loading && !error" class="playList-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Usuario</th>
+          <th>Canciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let playlist of playlists; let i = index" (click)="onRowClick(playlist)">
+          <td>{{ playlist.name }}</td>
+          <td>{{ formatDescription(playlist.description) }}</td>
+          <td>{{ playlist.user.username }}</td>
+          <td>{{ playlist.canciones?.length || 0 }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
-  <div *ngIf="error" class="error-message">
-    {{ error }}
-    <button (click)="loadPlaylists()">Reintentar</button>
-  </div>
-
-  <table *ngIf="!loading && !error" class="playList-table">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Usuario</th>
-        <th>Canciones</th>
-      </tr>
-    </thead>
-    <tbody>
-  <tr *ngFor="let playlist of playlists; let i = index" (click)="onRowClick(playlist)">
-    <td>{{ playlist.name }}</td>
-    <td>{{ formatDescription(playlist.description) }}</td>
-    <td>{{ playlist.user.username }}</td>
-    <td>{{ playlist.canciones?.length || 0 }}</td>
-  </tr>
-</tbody>
-  </table>
-</div>
+</body>
+<app-footer></app-footer>

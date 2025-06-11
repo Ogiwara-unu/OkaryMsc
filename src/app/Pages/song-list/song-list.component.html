@@ -28,13 +28,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let song of songs; index as i">
+              <tr *ngFor="let song of songs; index as i" (click)="openSongInfoModal(song)">
                 <td>{{ i + 1 }}</td>
                 <td class="title-cell">
                   <img [src]="getImageUrl(song.photo)" alt="{{ song.title }}"
                     onerror="this.src='assets/img/default-image.jpeg'" />
                   <div class="title-info">
-                    <strong (click)="openSongInfoModal(song)" style="cursor: pointer;">
+                    <strong  style="cursor: pointer;">
                       {{ song.title }}
                     </strong>
                     <span>{{ song.artist || 'Desconocido' }}</span>
@@ -44,10 +44,10 @@
                 <td>{{ formatDuration(song.duration) }}</td>
                 <td *ngIf="isAdmin" class="actions-cell">
                   <div class="button-group">
-                    <button class="icon-button edit-button" title="Editar" (click)="onEditSong(song)">
+                    <button class="icon-button edit-button" title="Editar" (click)="onEditSong(song); $event.stopPropagation()">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </button>
-                    <button class="icon-button delete-button" title="Eliminar" (click)="onDeleteSong(song)">
+                    <button class="icon-button delete-button" title="Eliminar" (click)="onDeleteSong(song.id);  $event.stopPropagation()">
                       <i class="fa-solid fa-trash"></i>
                     </button>
                   </div>

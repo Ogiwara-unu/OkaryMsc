@@ -79,7 +79,7 @@ export class SongListComponent implements OnInit {
   }
 
   getImageUrl(photo: string): string {
-    if (!photo) return 'assets/img/default-song.png';
+    if (!photo) return 'assets/img/default-image.jpeg';
     return `http://localhost:9001/images/songs/${photo}`;
   }
 

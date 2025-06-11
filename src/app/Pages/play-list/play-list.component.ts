@@ -8,8 +8,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FooterComponent } from '../../Components/footer/footer.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { AddPlaylistModalComponent } from '../../Components/add-playlist-modal/add-playlist-modal.component';
-import { UpdatePlaylistModalComponent } from '../../Components/update-playlist-modal/update-playlist-modal.component';
 import { AuthService } from '../../Services/auth.service';
 import { ShowPlaylistInfoModalComponent } from '../../Components/show-playlist-info-modal/show-playlist-info-modal.component';
 import Swal from 'sweetalert2';
@@ -22,11 +20,9 @@ import Swal from 'sweetalert2';
     RouterModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatIconModule,NavbarComponent,
+    MatIconModule,
+    NavbarComponent,
     FooterComponent,
-    AddPlaylistModalComponent,
-    UpdatePlaylistModalComponent,
-    ShowPlaylistInfoModalComponent
   ],
   templateUrl: './play-list.component.html',
   styleUrls: ['./play-list.component.css']

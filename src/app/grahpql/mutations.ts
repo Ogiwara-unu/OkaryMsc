@@ -33,6 +33,7 @@ export const ADD_USER_MUTATION = gql`
   }
 `;
 
+
 export const DELETE_USER_MUTATION = gql`
   mutation DeleteUser($id: ID!) {
     eliminarUsuario(id: $id) {
@@ -40,6 +41,15 @@ export const DELETE_USER_MUTATION = gql`
       username
       email
       role
+    }
+  }
+`;
+export const DELETE_SONG_MUTATION = gql`
+  mutation DeleteSong($id: ID!){
+    eliminarCancion(id: $id) {
+      id
+      name
+      description
     }
   }
 `;

@@ -16,4 +16,15 @@ export class SongInfoModalComponent {
     if (!photo) return 'assets/img/default-song.png';
     return `http://localhost:9001/images/songs/${photo}`;
   }
+
+  getFormattedLyrics(lyrics: string): string {
+    if (!lyrics) return '';
+    const lines = lyrics.split('\n');
+    const formatted = lines.map((line, index) => {
+      // Agrega una línea en blanco después de cada 4 líneas (excepto la última)
+      return (index + 1) % 4 === 0 ? line + '\n' : line;
+    });
+    return formatted.join('\n');
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, EventEmitter, Output } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PlaylistsService } from '../../Services/play-list-modal.service'; 
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,8 @@ export class ShowPlaylistInfoModalComponent implements OnInit {
   songs: any[] = [];
   loading = true;
   error: string | null = null;
+
+  @Output() close = new EventEmitter<void>();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { playlistId: string },

@@ -1,39 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
 
+body {
+  flex: 1;
+}
 /* Contenedor principal */
 .playList-list-container {
   padding: 20px 20px 0 20px;
   max-width: 100%;
   margin: 0 auto;
-}
-/* Botón flotante para agregar canciones */
-.add-playList-button {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #BBC0BA;
-  color: white;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  transition: all 0.3s ease;
-}
-
-.add-playList-button:hover {
-  background-color: #9ea59a;
-  transform: scale(1.1);
-}
-
-.add-playList-button i {
-  margin-top: 2px; /* Ajuste fino para centrar el icono */
 }
 .playList-list-container h2{
     color: #BBC0BA;
