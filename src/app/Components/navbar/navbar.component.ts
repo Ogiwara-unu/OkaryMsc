@@ -14,15 +14,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isAdmin = false;
   private intervalId: any;
   private subscription!: Subscription;
+  isLoggedIn = false;
 
   constructor(public authService: AuthService) {}
 
   ngOnInit() {
-    this.subscription = this.authService.currentUser$.subscribe(user => {
-      this.isAdmin = user?.role === 'admin';
-      console.log(this.isAdmin ? 'El usuario logeado es admin' : 'El usuario logeado no es admin');
-    });
-  }
+  this.subscription = this.authService.currentUser$.subscribe(user => {
+    this.isAdmin = user?.role === 'admin';
+    this.isLoggedIn = !!user; 
+    console.log(this.isAdmin ? 'El usuario logeado es admin' : 'El usuario logeado no es admin');
+  });
+}
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

@@ -7,9 +7,9 @@ import {
   UPDATE_PLAYLIST_MUTATION,
   DELETE_PLAYLIST_MUTATION,
   ADD_SONG_TO_PLAYLIST_MUTATION,
-  REMOVE_SONG_FROM_PLAYLIST_MUTATION
+  REMOVE_SONG_FROM_PLAYLIST_MUTATION,
 } from '../grahpql/mutations';
-import { GET_SONGS_BY_PLAYLIST_QUERY, GET_PLAYLIST_QUERY, GET_PLAYLISTS_QUERY } from '../grahpql/queries';
+import { GET_SONGS_BY_PLAYLIST_QUERY, GET_PLAYLIST_QUERY, GET_PLAYLISTS_QUERY,GET_PLAYLISTS_BY_USER_QUERY } from '../grahpql/queries';
 
 interface Song {
   id: string;
@@ -203,4 +203,39 @@ export class PlaylistsService {
       })
     );
   }
+
+  getPlaylistsByUser(userId: string): Observable<Playlist[]> {
+  const token = sessionStorage.getItem('token');
+
+  return this.apollo.watchQuery<any>({
+    query: GET_PLAYLISTS_BY_USER_QUERY,
+    variables: { userId },
+    context: {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    },
+    errorPolicy: 'all'
+  })
+  .valueChanges
+  .pipe(
+    map(result => {
+      if (result.errors) {
+        throw new Error(result.errors[0].message);
+      }
+      return result.data?.playlistsByUser || [];
+    }),
+    catchError(error => {
+      console.error('Error al obtener las playlists del usuario:', error);
+      let errorMsg = 'Error al obtener las playlists del usuario';
+      if (error.networkError) {
+        errorMsg = 'Error de conexión con el servidor';
+      } else if (error.graphQLErrors?.length > 0) {
+        errorMsg = error.graphQLErrors[0].message;
+      }
+      return throwError(() => new Error(errorMsg));
+    })
+  );
+}
+
 }

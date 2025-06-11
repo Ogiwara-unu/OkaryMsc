@@ -1,0 +1,90 @@
+<app-navbar></app-navbar>
+
+<div class="d-flex flex-column min-vh-100">
+  <main class="flex-grow-1">
+    <div class="playlist-list-container">
+      <!-- Botón flotante para agregar playlist -->
+      <button *ngIf="isLoggedIn" class="add-playlist-button" (click)="openAddSongModal()" title="Agregar Playlist">
+        <i class="fas fa-plus"></i>
+      </button>
+
+      <h2>Mis Playlists</h2>
+
+      <!-- Spinner de carga -->
+      <div *ngIf="loading" class="loading-spinner">
+        <mat-spinner></mat-spinner>
+        <p>Cargando playlists...</p>
+      </div>
+
+      <!-- Mensaje de error -->
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <!-- Tabla de playlists -->
+      <div *ngIf="!loading && !error" class="playlist-table-wrapper">
+        <table class="playlist-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Título</th>
+              <th>Descripción</th>
+              <th>Creador</th>
+              <th *ngIf="isLoggedIn">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let playlist of playlists; index as i">
+              <td>{{ i + 1 }}</td>
+              <td class="title-cell">
+                <img [src]="playlist.photoUrl || 'assets/img/default-image.jpeg'" 
+                     alt="{{ playlist.name }}"
+                     onerror="this.src='assets/img/default-image.jpeg'" />
+                <div class="title-info">
+                  <strong (click)="openPlayListInfoModal(playlist)" style="cursor: pointer;">
+                    {{ playlist.name }}
+                  </strong>
+                  <span>ID: {{ playlist.id }}</span>
+                </div>
+              </td>
+              <td>{{ formatDescription(playlist.description) }}</td>
+              <td>{{ playlist.createdBy || 'Desconocido' }}</td>
+              <td *ngIf="isLoggedIn" class="actions-cell">
+                <div class="button-group">
+                  <button class="icon-button edit-button" (click)="onEditPlaylist(playlist)" matTooltip="Editar Playlist">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button class="icon-button delete-button" (click)="onDeletePlaylist(playlist.id)" matTooltip="Eliminar Playlist">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <app-footer></app-footer>
+
+  <!-- Modales -->
+  <app-add-playlist-modal
+    *ngIf="showAddModal"
+    (success)="onAddSuccess($event)"
+    (close)="showAddModal = false">
+  </app-add-playlist-modal>
+
+  <!-- <app-update-playlist-modal
+    *ngIf="showUpdateModal"
+    [playlist]="selectedPlaylist"
+    (success)="onUpdateSuccess($event)"
+    (close)="showUpdateModal = false">
+  </app-update-playlist-modal> -->
+
+  <!-- <app-show-playlist-info-modal
+    *ngIf="showInfoModal"
+    [playlist]="playkistToShow"
+    (close)="closePlayListInfoModal()">
+  </app-show-playlist-info-modal> -->
+</div>

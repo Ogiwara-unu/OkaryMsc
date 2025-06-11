@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-song-info-modal',
   standalone: true,
-  imports: [CommonModule], // <-- Agrega esto
+  imports: [CommonModule], 
   templateUrl: './song-info-modal.component.html',
   styleUrl: './song-info-modal.component.css'
 })
