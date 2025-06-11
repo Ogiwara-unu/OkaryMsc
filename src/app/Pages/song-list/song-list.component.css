@@ -168,6 +168,17 @@ body {
   color: #d32f2f;
 }
 
+
+.addPlaylist-button:hover {
+  color: #333;
+}
+
+
+.button-group {
+  display: flex;
+  align-items: center;
+}
+
 .loading-spinner {
   display: flex;
   flex-direction: column;

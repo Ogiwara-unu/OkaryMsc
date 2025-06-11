@@ -34,7 +34,7 @@
                   <img [src]="getImageUrl(song.photo)" alt="{{ song.title }}"
                     onerror="this.src='assets/img/default-image.jpeg'" />
                   <div class="title-info">
-                    <strong  style="cursor: pointer;">
+                    <strong style="cursor: pointer;">
                       {{ song.title }}
                     </strong>
                     <span>{{ song.artist || 'Desconocido' }}</span>
@@ -44,15 +44,31 @@
                 <td>{{ formatDuration(song.duration) }}</td>
                 <td *ngIf="isLoggedIn" class="actions-cell">
                   <div class="button-group">
-                    <button *ngIf="isAdmin" class="icon-button edit-button" title="Editar" (click)="onEditSong(song); $event.stopPropagation()">
+                    <button *ngIf="isAdmin" class="icon-button edit-button" title="Editar"
+                      (click)="onEditSong(song); $event.stopPropagation()">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </button>
-                    <button *ngIf="isAdmin" class="icon-button delete-button" title="Eliminar" (click)="onDeleteSong(song.id);  $event.stopPropagation()">
+                    <button *ngIf="isAdmin" class="icon-button delete-button" title="Eliminar"
+                      (click)="onDeleteSong(song.id);  $event.stopPropagation()">
                       <i class="fa-solid fa-trash"></i>
                     </button>
-                     <button *ngIf="isLoggedIn" class="icon-button " title="Eliminar" (click)="onDeleteSong(song.id);  $event.stopPropagation()">
-                      <i class="fa-solid fa-pen-to-square"></i>
+                    <!-- Botón para agregar a playlist -->
+                    <button [matMenuTriggerFor]="playlistMenu" class="icon-button addPlaylist-button"
+                      title="Agregar a playlist" (click)="$event.stopPropagation(); onAddToPlaylist(song.id, $event)">
+                      <i class="fa-solid fa-ellipsis-vertical"></i>
                     </button>
+                    
+                    <mat-menu #playlistMenu="matMenu">
+                      <button mat-menu-item disabled>Agregar a playlist</button>
+                      <mat-divider></mat-divider>
+                      <button mat-menu-item *ngFor="let playlist of userPlaylists"
+                        (click)="addSongToSelectedPlaylist(playlist.id)">
+                        {{ playlist.name }}
+                      </button>
+                      <button mat-menu-item *ngIf="userPlaylists.length === 0" disabled>
+                        No tienes playlists creadas
+                      </button>
+                    </mat-menu>
                   </div>
                 </td>
               </tr>

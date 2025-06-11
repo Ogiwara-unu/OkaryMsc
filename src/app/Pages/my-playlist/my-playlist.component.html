@@ -37,14 +37,12 @@
             <tr *ngFor="let playlist of playlists; index as i" (click)="onRowClick(playlist)" style="cursor: pointer;">
               <td>{{ i + 1 }}</td>
               <td class="title-cell">
-                <img [src]="playlist.photoUrl || 'assets/img/default-image.jpeg'" 
-                     alt="{{ playlist.name }}"
-                     onerror="this.src='assets/img/default-image.jpeg'" />
+                <img [src]="playlist.photoUrl || 'assets/img/default-playlist.jpeg'" 
+                     alt="{{ playlist.name }}" />
                 <div class="title-info">
                   <strong (click)="openPlayListInfoModal(playlist); $event.stopPropagation()" style="cursor: pointer;">
                     {{ playlist.name }}
                   </strong>
-                  <span>ID: {{ playlist.id }}</span>
                 </div>
               </td>
               <td>{{ formatDescription(playlist.description) }}</td>

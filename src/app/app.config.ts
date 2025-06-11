@@ -7,10 +7,13 @@ import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache, ApolloLink } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { provideServiceWorker } from '@angular/service-worker';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimations(),
     provideRouter(routes),
     provideHttpClient(),
     provideApollo(() => {

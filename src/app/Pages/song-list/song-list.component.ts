@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { SongService } from '../../Services/songs.service';
+import { PlaylistsService } from '../../Services/play-list-modal.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
 import { NavbarComponent } from '../../Components/navbar/navbar.component';
 import { FooterComponent } from '../../Components/footer/footer.component';
 import { AuthService } from '../../Services/auth.service';
@@ -28,7 +33,11 @@ import { Subscription } from 'rxjs';
     FooterComponent,
     UpdateSongModalComponent,
     AddSongModalComponent,
-    SongInfoModalComponent
+    SongInfoModalComponent,
+    MatMenuModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatTooltipModule
   ],
   templateUrl: './song-list.component.html',
   styleUrls: ['./song-list.component.css']
@@ -40,6 +49,10 @@ export class SongListComponent implements OnInit {
   isAdmin: boolean = false;
   isLoggedIn = false;
   private subscription!: Subscription;
+  //PLAYLIST
+  userPlaylists: any[] = [];
+  showPlaylistMenu: boolean = false;
+  currentSelectedSongId: string | null = null;
 
   showUpdateModal = false;
   selectedSong: any = null;
@@ -51,21 +64,26 @@ export class SongListComponent implements OnInit {
     private songService: SongService,
     private router: Router,
     private authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private playlistsService: PlaylistsService
 
   ) { }
 
   ngOnInit(): void {
     this.subscription = this.authService.currentUser$.subscribe(user => {
-    this.isAdmin = user?.role === 'admin';
-    this.isLoggedIn = !!user; 
-    console.log(this.isAdmin ? 'El usuario logeado es admin' : 'El usuario logeado no es admin');
-    this.checkUserRole();
-    this.loadSongs();
-  });
+      this.isAdmin = user?.role === 'admin';
+      this.isLoggedIn = !!user;
+      console.log(this.isAdmin ? 'El usuario logeado es admin' : 'El usuario logeado no es admin');
+      this.checkUserRole();
+      this.loadSongs();
+
+      if (this.isLoggedIn) {
+        this.loadUserPlaylists();
+      }
+    });
   }
 
-  
+
 
   checkUserRole(): void {
     this.isAdmin = this.authService.isAdmin();
@@ -155,7 +173,7 @@ export class SongListComponent implements OnInit {
   }
 
 
-  
+
   openSongInfoModal(song: any) {
     this.songToShow = song;
     this.showInfoModal = true;
@@ -165,6 +183,59 @@ export class SongListComponent implements OnInit {
     this.showInfoModal = false;
     this.songToShow = null;
   }
+
+  //cargar playlist del usuario
+  loadUserPlaylists(): void {
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+    if (user && user.id) {
+      this.playlistsService.getPlaylistsByUser(user.id).subscribe({
+        next: (playlists) => {
+          this.userPlaylists = playlists;
+        },
+        error: (err) => {
+          console.error('Error al cargar las playlists del usuario:', err);
+        }
+      });
+    }
+  }
+  //Seleccion de la cancion para agregar
+
+  onAddToPlaylist(songId: string, event: Event): void {
+    event.stopPropagation();
+    this.currentSelectedSongId = songId;
+    this.loadUserPlaylists();
+  }
+
+  // Método para agregar canción a una playlist específica con validación de duplicados
+  addSongToSelectedPlaylist(playlistId: string): void {
+    if (!this.currentSelectedSongId) return;
+
+    // Primero verificamos si la canción ya está en la playlist (validación frontend)
+    const playlist = this.userPlaylists.find(p => p.id === playlistId);
+    if (playlist && playlist.canciones.some((song: any) => song.id === this.currentSelectedSongId)) {
+      this.showAlert('error', 'Esta canción ya está en la playlist');
+      this.currentSelectedSongId = null;
+      return;
+    }
+
+    this.playlistsService.addSongToPlaylist(playlistId, this.currentSelectedSongId).subscribe({
+      next: () => {
+        this.showAlert('success', 'Canción agregada a la playlist exitosamente');
+        this.currentSelectedSongId = null;
+        // Actualizamos la lista de playlists para reflejar el cambio
+        this.loadUserPlaylists();
+      },
+      error: (err) => {
+        console.error('Error al agregar canción a la playlist:', err);
+        const errorMessage = err.message.includes('already exists') ?
+          'Esta canción ya está en la playlist' :
+          'Error al agregar canción a la playlist';
+        this.showAlert('error', errorMessage);
+      }
+    });
+  }
+
+
 }
 
 

@@ -9,7 +9,7 @@ import {
   ADD_SONG_TO_PLAYLIST_MUTATION,
   REMOVE_SONG_FROM_PLAYLIST_MUTATION,
 } from '../grahpql/mutations';
-import { GET_SONGS_BY_PLAYLIST_QUERY, GET_PLAYLIST_QUERY, GET_PLAYLISTS_QUERY,GET_PLAYLISTS_BY_USER_QUERY } from '../grahpql/queries';
+import { GET_SONGS_BY_PLAYLIST_QUERY, GET_PLAYLIST_QUERY, GET_PLAYLISTS_QUERY, GET_PLAYLISTS_BY_USER_QUERY } from '../grahpql/queries';
 
 interface Song {
   id: string;
@@ -35,67 +35,67 @@ interface Playlist {
   providedIn: 'root'
 })
 export class PlaylistsService {
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo) { }
 
   getSongsByPlaylist(playlistId: string): Observable<Song[]> {
-  return this.apollo.watchQuery<any>({
-    query: GET_SONGS_BY_PLAYLIST_QUERY,
-    variables: { id: playlistId },
-    errorPolicy: 'all'
-  })
-  .valueChanges
-  .pipe(
-    map(result => {
-      if (result.errors) {
-        throw new Error(result.errors[0].message);
-      }
-      return result.data?.playlist?.canciones || [];
-    }),
-    catchError(error => {
-      console.error('Error completo:', error);
-      let errorMsg = 'Error al obtener las canciones de la playlist';
-      if (error.networkError) {
-        errorMsg = 'Error de conexión con el servidor';
-      } else if (error.graphQLErrors?.length > 0) {
-        errorMsg = error.graphQLErrors[0].message;
-      }
-      return throwError(() => new Error(errorMsg));
+    return this.apollo.watchQuery<any>({
+      query: GET_SONGS_BY_PLAYLIST_QUERY,
+      variables: { id: playlistId },
+      errorPolicy: 'all'
     })
-  );
-}
+      .valueChanges
+      .pipe(
+        map(result => {
+          if (result.errors) {
+            throw new Error(result.errors[0].message);
+          }
+          return result.data?.playlist?.canciones || [];
+        }),
+        catchError(error => {
+          console.error('Error completo:', error);
+          let errorMsg = 'Error al obtener las canciones de la playlist';
+          if (error.networkError) {
+            errorMsg = 'Error de conexión con el servidor';
+          } else if (error.graphQLErrors?.length > 0) {
+            errorMsg = error.graphQLErrors[0].message;
+          }
+          return throwError(() => new Error(errorMsg));
+        })
+      );
+  }
 
   getPlaylists(limit?: number): Observable<Playlist[]> {
-  return this.apollo.watchQuery<any>({
-    query: GET_PLAYLISTS_QUERY,
-    variables: { limit },
-    errorPolicy: 'all'
-  })
-  .valueChanges
-  .pipe(
-    map(result => {
-      if (result.errors) {
-        throw new Error(result.errors[0].message);
-      }
-      return result.data?.playlists?.items || [];
-    }),
-    catchError(error => {
-      console.error('Error al obtener las playlists:', error);
-      let errorMsg = 'Error al obtener las playlists';
-      if (error.networkError) {
-        errorMsg = 'Error de conexión con el servidor';
-      } else if (error.graphQLErrors?.length > 0) {
-        errorMsg = error.graphQLErrors[0].message;
-      }
-      return throwError(() => new Error(errorMsg));
+    return this.apollo.watchQuery<any>({
+      query: GET_PLAYLISTS_QUERY,
+      variables: { limit },
+      errorPolicy: 'all'
     })
-  );
-}
+      .valueChanges
+      .pipe(
+        map(result => {
+          if (result.errors) {
+            throw new Error(result.errors[0].message);
+          }
+          return result.data?.playlists?.items || [];
+        }),
+        catchError(error => {
+          console.error('Error al obtener las playlists:', error);
+          let errorMsg = 'Error al obtener las playlists';
+          if (error.networkError) {
+            errorMsg = 'Error de conexión con el servidor';
+          } else if (error.graphQLErrors?.length > 0) {
+            errorMsg = error.graphQLErrors[0].message;
+          }
+          return throwError(() => new Error(errorMsg));
+        })
+      );
+  }
 
   createPlaylist(input: { name: string; description: string }): Observable<Playlist> {
     const token = sessionStorage.getItem('token');
     const user = JSON.parse(sessionStorage.getItem('user') || '{}');
     const userId = user.id;
-    
+
     return this.apollo.mutate<any>({
       mutation: CREATE_PLAYLIST_MUTATION,
       variables: {
@@ -120,9 +120,9 @@ export class PlaylistsService {
 
   updatePlaylist(id: string, input: { name: string; description: string; userId: string }): Observable<Playlist> {
     const token = sessionStorage.getItem('token');
-     const user = JSON.parse(sessionStorage.getItem('user') || '{}');
-      const userId = user.id;
-      input.userId = userId; // Aseguramos que el userId esté presente
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+    const userId = user.id;
+    input.userId = userId; // Aseguramos que el userId esté presente
     return this.apollo.mutate<any>({
       mutation: UPDATE_PLAYLIST_MUTATION,
       variables: {
@@ -130,7 +130,7 @@ export class PlaylistsService {
         input: {
           name: input.name,
           description: input.description,
-          user_Id: input.userId 
+          user_Id: input.userId
         }
       },
       context: {
@@ -145,7 +145,7 @@ export class PlaylistsService {
         return throwError(() => new Error('Error al actualizar la playlist'));
       })
     );
-}
+  }
 
   deletePlaylist(id: string): Observable<Playlist> {
     const token = sessionStorage.getItem('token');
@@ -158,15 +158,14 @@ export class PlaylistsService {
         }
       }
     })
-    .pipe(
-      map(result => result.data.eliminarPlaylist),
-      catchError(error => {
-        console.error('Error al eliminar la playlist:', error);
-        return throwError(() => new Error('Error al eliminar la playlist'));
-      })
-    );
+      .pipe(
+        map(result => result.data.eliminarPlaylist),
+        catchError(error => {
+          console.error('Error al eliminar la playlist:', error);
+          return throwError(() => new Error('Error al eliminar la playlist'));
+        })
+      );
   }
-
   addSongToPlaylist(playlistId: string, songId: string): Observable<Playlist> {
     const token = sessionStorage.getItem('token');
     return this.apollo.mutate<any>({
@@ -178,15 +177,25 @@ export class PlaylistsService {
         }
       }
     })
-    .pipe(
-      map(result => result.data.agregarCancionAPlaylist),
-      catchError(error => {
-        console.error('Error al agregar canción a la playlist:', error);
-        return throwError(() => new Error('Error al agregar canción a la playlist'));
-      })
-    );
+      .pipe(
+        map(result => {
+          if (result.errors) {
+            throw new Error(result.errors[0].message);
+          }
+          return result.data.agregarCancionAPlaylist;
+        }),
+        catchError(error => {
+          console.error('Error al agregar canción a la playlist:', error);
+          let errorMsg = 'Error al agregar canción a la playlist';
+          if (error.message.includes('already exists')) {
+            errorMsg = 'La canción ya existe en esta playlist';
+          } else if (error.networkError) {
+            errorMsg = 'Error de conexión con el servidor';
+          }
+          return throwError(() => new Error(errorMsg));
+        })
+      );
   }
-
   removeSongFromPlaylist(playlistId: string, songId: string): Observable<Playlist> {
     const token = sessionStorage.getItem('token');
     return this.apollo.mutate<any>({
@@ -198,47 +207,63 @@ export class PlaylistsService {
         }
       }
     })
-    .pipe(
-      map(result => result.data.quitarCancionDePlaylist),
-      catchError(error => {
-        console.error('Error al quitar canción de la playlist:', error);
-        return throwError(() => new Error('Error al quitar canción de la playlist'));
-      })
-    );
+      .pipe(
+        map(result => {
+          if (result.errors) {
+            throw new Error(result.errors[0].message);
+          }
+          return result.data.quitarCancionDePlaylist;
+        }),
+        catchError(error => {
+          console.error('Error al quitar canción de la playlist:', error);
+          let errorMsg = 'Error al quitar canción de la playlist';
+
+          // Mejor manejo de diferentes tipos de errores
+          if (error.networkError) {
+            errorMsg = 'Error de conexión con el servidor';
+          } else if (error.graphQLErrors?.length > 0) {
+            errorMsg = error.graphQLErrors[0].message;
+          } else if (error.message.includes('not found')) {
+            errorMsg = 'La canción no existe en esta playlist';
+          }
+
+          return throwError(() => new Error(errorMsg));
+        })
+      );
   }
 
   getPlaylistsByUser(userId: string): Observable<Playlist[]> {
-  const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
-  return this.apollo.watchQuery<any>({
-    query: GET_PLAYLISTS_BY_USER_QUERY,
-    variables: { userId },
-    context: {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    },
-    errorPolicy: 'all'
-  })
-  .valueChanges
-  .pipe(
-    map(result => {
-      if (result.errors) {
-        throw new Error(result.errors[0].message);
-      }
-      return result.data?.playlistsByUser || [];
-    }),
-    catchError(error => {
-      console.error('Error al obtener las playlists del usuario:', error);
-      let errorMsg = 'Error al obtener las playlists del usuario';
-      if (error.networkError) {
-        errorMsg = 'Error de conexión con el servidor';
-      } else if (error.graphQLErrors?.length > 0) {
-        errorMsg = error.graphQLErrors[0].message;
-      }
-      return throwError(() => new Error(errorMsg));
+    return this.apollo.watchQuery<any>({
+      query: GET_PLAYLISTS_BY_USER_QUERY,
+      variables: { userId },
+      context: {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      },
+      errorPolicy: 'all'
     })
-  );
-}
+      .valueChanges
+      .pipe(
+        map(result => {
+          if (result.errors) {
+            throw new Error(result.errors[0].message);
+          }
+          return result.data?.playlistsByUser || [];
+        }),
+        catchError(error => {
+          console.error('Error al obtener las playlists del usuario:', error);
+          let errorMsg = 'Error al obtener las playlists del usuario';
+          if (error.networkError) {
+            errorMsg = 'Error de conexión con el servidor';
+          } else if (error.graphQLErrors?.length > 0) {
+            errorMsg = error.graphQLErrors[0].message;
+          }
+          return throwError(() => new Error(errorMsg));
+        })
+      );
+  }
 
 }

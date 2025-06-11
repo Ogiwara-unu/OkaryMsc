@@ -27,7 +27,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let playlist of playlists; let i = index" (click)="onRowClick(playlist)">
-          <td>{{ playlist.name }}</td>
+           <td class="title-cell">
+                <img [src]="playlist.photoUrl || 'assets/img/default-playlist.jpeg'" 
+                     alt="{{ playlist.name }}"/>
+                <div class="title-info">
+                  <strong>{{ playlist.name }}</strong>
+                </div>
+              </td>
           <td>{{ formatDescription(playlist.description) }}</td>
           <td>{{ playlist.user.username }}</td>
           <td>{{ playlist.canciones?.length || 0 }}</td>
