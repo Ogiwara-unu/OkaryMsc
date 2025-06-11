@@ -166,6 +166,10 @@ export const GET_PLAYLISTS_BY_USER_QUERY = gql`
       id
       name
       description
+      user {
+        id
+        username
+      }
       canciones {
         id
         title

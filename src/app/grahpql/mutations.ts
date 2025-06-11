@@ -161,21 +161,17 @@ export const CREATE_PLAYLIST_MUTATION = gql`
 
 // Actualizar Playlist
 export const UPDATE_PLAYLIST_MUTATION = gql`
-  mutation UpdatePlaylist($id: ID!, $input: PlaylistInput!) {
-    actualizarPlaylist(id: $id, input: $input) {
+  mutation ActualizarPlaylist($id: ID!, $input: UpdatePlaylistInput!) {
+  actualizarPlaylist(id: $id, input: $input) {
+    id
+    name
+    description
+    user {
       id
-      name
-      description
-      user {
-        id
-        username
-      }
-      canciones {
-        id
-        title
-      }
+      username
     }
   }
+}
 `;
 
 // Eliminar Playlist
@@ -197,6 +193,7 @@ export const ADD_SONG_TO_PLAYLIST_MUTATION = gql`
       canciones {
         id
         title
+        artist
       }
     }
   }

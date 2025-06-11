@@ -95,7 +95,7 @@ export class PlaylistsService {
     const token = sessionStorage.getItem('token');
     const user = JSON.parse(sessionStorage.getItem('user') || '{}');
     const userId = user.id;
-
+    
     return this.apollo.mutate<any>({
       mutation: CREATE_PLAYLIST_MUTATION,
       variables: {
@@ -118,16 +118,19 @@ export class PlaylistsService {
     );
   }
 
-  updatePlaylist(id: string, input: { name: string; description: string }): Observable<Playlist> {
+  updatePlaylist(id: string, input: { name: string; description: string; userId: string }): Observable<Playlist> {
     const token = sessionStorage.getItem('token');
-
+     const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+      const userId = user.id;
+      input.userId = userId; // Aseguramos que el userId esté presente
     return this.apollo.mutate<any>({
       mutation: UPDATE_PLAYLIST_MUTATION,
       variables: {
-        id,
+        id: id.toString(),
         input: {
           name: input.name,
-          description: input.description
+          description: input.description,
+          user_Id: input.userId 
         }
       },
       context: {
@@ -142,7 +145,7 @@ export class PlaylistsService {
         return throwError(() => new Error('Error al actualizar la playlist'));
       })
     );
-  }
+}
 
   deletePlaylist(id: string): Observable<Playlist> {
     const token = sessionStorage.getItem('token');

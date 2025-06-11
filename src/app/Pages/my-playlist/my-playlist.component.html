@@ -34,27 +34,27 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let playlist of playlists; index as i">
+            <tr *ngFor="let playlist of playlists; index as i" (click)="onRowClick(playlist)" style="cursor: pointer;">
               <td>{{ i + 1 }}</td>
               <td class="title-cell">
                 <img [src]="playlist.photoUrl || 'assets/img/default-image.jpeg'" 
                      alt="{{ playlist.name }}"
                      onerror="this.src='assets/img/default-image.jpeg'" />
                 <div class="title-info">
-                  <strong (click)="openPlayListInfoModal(playlist)" style="cursor: pointer;">
+                  <strong (click)="openPlayListInfoModal(playlist); $event.stopPropagation()" style="cursor: pointer;">
                     {{ playlist.name }}
                   </strong>
                   <span>ID: {{ playlist.id }}</span>
                 </div>
               </td>
               <td>{{ formatDescription(playlist.description) }}</td>
-              <td>{{ playlist.createdBy || 'Desconocido' }}</td>
+              <td>{{ playlist.user?.username || 'Desconocido' }}</td>
               <td *ngIf="isLoggedIn" class="actions-cell">
                 <div class="button-group">
-                  <button class="icon-button edit-button" (click)="onEditPlaylist(playlist)" matTooltip="Editar Playlist">
+                  <button class="icon-button edit-button" (click)="onEditPlaylist(playlist); $event.stopPropagation()" matTooltip="Editar Playlist">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
-                  <button class="icon-button delete-button" (click)="onDeletePlaylist(playlist.id)" matTooltip="Eliminar Playlist">
+                  <button class="icon-button delete-button" (click)="onDeletePlaylist(playlist.id); $event.stopPropagation()" matTooltip="Eliminar Playlist">
                     <i class="fa-solid fa-trash"></i>
                   </button>
                 </div>
@@ -75,16 +75,11 @@
     (close)="showAddModal = false">
   </app-add-playlist-modal>
 
-  <!-- <app-update-playlist-modal
+  <app-update-playlist-modal
     *ngIf="showUpdateModal"
     [playlist]="selectedPlaylist"
     (success)="onUpdateSuccess($event)"
     (close)="showUpdateModal = false">
-  </app-update-playlist-modal> -->
+  </app-update-playlist-modal>
 
-  <!-- <app-show-playlist-info-modal
-    *ngIf="showInfoModal"
-    [playlist]="playkistToShow"
-    (close)="closePlayListInfoModal()">
-  </app-show-playlist-info-modal> -->
 </div>

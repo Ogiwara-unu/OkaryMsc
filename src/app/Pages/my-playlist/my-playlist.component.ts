@@ -45,7 +45,7 @@ export class MyPlaylistComponent {
   selectedPlaylist: any = null;
   showAddModal = false;
   showInfoModal = false;
-  playkistToShow: any = null;
+  playlistToShow: any = null;
 
   constructor(
       private playListService: PlaylistsService,
@@ -84,6 +84,7 @@ export class MyPlaylistComponent {
   this.playListService.getPlaylistsByUser(userId).subscribe({
     next: (playlists) => {
       this.playlists = playlists;
+      console.log('Playlists cargadas:', this.playlists);
       this.loading = false;
     },
     error: (err) => {
@@ -149,19 +150,20 @@ export class MyPlaylistComponent {
   }
 
   onAddSuccess(newPlaylist: any): void {
-    this.loadPlaylist(); 
+    this.playlists = [...this.playlists, newPlaylist];
+    console.log('Nueva playlist agregada:', newPlaylist); 
     this.showAddModal = false;
-    this.showAlert('success', 'Canción agregada exitosamente');
+    this.showAlert('success', 'Playlist agregada exitosamente');
   }
 
   openPlayListInfoModal(playlist: any) {
-    this.playkistToShow = playlist;
+    this.playlistToShow = playlist;
     this.showInfoModal = true;
   }
 
   closePlayListInfoModal() {
     this.showInfoModal = false;
-    this.playkistToShow = null;
+    this.playlistToShow = null;
   }
 
   onRowClick(playlist: any): void {
@@ -169,5 +171,5 @@ export class MyPlaylistComponent {
     width: '1450px',
     data: { playlistId: playlist.id }
   });
-  } 
+}
 }

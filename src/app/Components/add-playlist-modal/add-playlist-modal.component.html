@@ -1,1 +1,31 @@
-<p>add-playlist-modal works!</p>
+<div class="modal-overlay" (click)="onClose()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-button" (click)="onClose()">&times;</button>
+        <div class="header">
+            <img src="assets/img/okarys-logo.png" alt="OKARYS Music" />
+            <h2>Crea una playlist</h2>
+        </div>
+
+        <div class="scrollable-content">
+            <form (ngSubmit)="submit()" [formGroup]="form">
+
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" formControlName="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción *</label>
+                    <input type="text" formControlName="description" required>
+                </div>
+
+                <div class="button">
+                    <button type="submit" [disabled]="isLoading || form.invalid">
+                        {{ isLoading ? 'Cargando...' : 'Agregar Canción' }}
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
