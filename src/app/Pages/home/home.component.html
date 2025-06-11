@@ -52,4 +52,4 @@
 <app-footer></app-footer>
 
 <app-login-modal *ngIf="showLoginModal" (close)="showLoginModal = false"></app-login-modal>
-<app-signup-modal *ngIf="showSignupModal" (close)="showSignupModal = false"></app-signup-modal>
+<app-signup-modal *ngIf="showSignupModal" (close)="showSignupModal = false" (switchToLogin)="onSwitchToLogin()"></app-signup-modal>

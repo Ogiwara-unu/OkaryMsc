@@ -31,7 +31,7 @@ export class AddUserModalComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required],
-      role: ['user'] 
+      role: ['user', [Validators.required, Validators.pattern(/^(user|admin)$/)]]
     }, { validator: this.passwordMatchValidator });
   }
 

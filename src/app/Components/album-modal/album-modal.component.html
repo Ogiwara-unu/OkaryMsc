@@ -3,58 +3,62 @@
     <button class="close-button" (click)="close.emit()">&times;</button>
     <div class="header">
       <img src="assets/img/okarys-logo.png" alt="OKARYS Music" />
-      <h2>{{ isEditMode ? 'Editar Álbum' : 'Agregar Álbum' }}</h2>
+      <h2>{{ isEditMode ? 'Actualizar Álbum' : 'Agregar Álbum' }}</h2>
+    </div>
+    <div class="scrollable-content">
+      <form (ngSubmit)="submit()" [formGroup]="form">
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" formControlName="title" placeholder="Título del álbum">
+          <div *ngIf="form.get('title')?.invalid && form.get('title')?.touched" class="error">
+            El título es obligatorio
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Artista</label>
+          <input type="text" formControlName="artist" placeholder="Nombre del artista">
+          <div *ngIf="form.get('artist')?.invalid && form.get('artist')?.touched" class="error">
+            El artista es obligatorio
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Año</label>
+          <input type="number" formControlName="year" placeholder="Año de lanzamiento">
+        </div>
+
+        <div class="form-group">
+          <label>Género</label>
+          <input type="text" formControlName="genre" placeholder="Género musical">
+        </div>
+
+        <div class="form-group">
+          <label>Foto (sube una portada)</label>
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+          <div *ngIf="previewUrl">
+            <img [src]="previewUrl" alt="Previsualización" style="max-width: 100px; margin-top: 8px;">
+          </div>
+          <div *ngIf="form.get('photo')?.value && !previewUrl">
+            <img [src]="'http://localhost:9001/images/albums/' + form.get('photo')?.value" alt="Portada actual"
+              style="max-width: 100px; margin-top: 8px;">
+          </div>
+        </div>
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="success-message">
+          {{ successMessage }}
+        </div>
+
+        <div class="button">
+          <button type="submit" [disabled]="isLoading || form.invalid">
+            {{ isLoading ? (isEditMode ? 'Guardando...' : 'Agregando...') : (isEditMode ? 'Guardar Cambios' : 'Agregar
+            Álbum') }}
+          </button>
+        </div>
+      </form>
     </div>
 
-    <form (ngSubmit)="submit()" [formGroup]="form">
-      <div class="form-group">
-        <label>Título</label>
-        <input type="text" formControlName="title" placeholder="Título del álbum">
-        <div *ngIf="form.get('title')?.invalid && form.get('title')?.touched" class="error">
-          El título es obligatorio
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Artista</label>
-        <input type="text" formControlName="artist" placeholder="Nombre del artista">
-        <div *ngIf="form.get('artist')?.invalid && form.get('artist')?.touched" class="error">
-          El artista es obligatorio
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Año</label>
-        <input type="number" formControlName="year" placeholder="Año de lanzamiento">
-      </div>
-
-      <div class="form-group">
-        <label>Género</label>
-        <input type="text" formControlName="genre" placeholder="Género musical">
-      </div>
-
-     <div class="form-group">
-    <label>Foto (sube una portada)</label>
-    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-   <div *ngIf="previewUrl">
-    <img [src]="previewUrl" alt="Previsualización" style="max-width: 100px; margin-top: 8px;">
-   </div>
-    <div *ngIf="form.get('photo')?.value && !previewUrl">
-    <img [src]="'http://localhost:9001/images/albums/' + form.get('photo')?.value" alt="Portada actual" style="max-width: 100px; margin-top: 8px;">
-   </div>
-    </div>
-      <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-      </div>
-      <div *ngIf="successMessage" class="success-message">
-        {{ successMessage }}
-      </div>
-
-      <div class="button">
-        <button type="submit" [disabled]="isLoading || form.invalid">
-          {{ isLoading ? (isEditMode ? 'Guardando...' : 'Agregando...') : (isEditMode ? 'Guardar Cambios' : 'Agregar Álbum') }}
-        </button>
-      </div>
-    </form>
   </div>
 </div>

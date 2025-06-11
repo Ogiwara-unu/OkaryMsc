@@ -5,62 +5,69 @@
             <img src="assets/img/okarys-logo.png" alt="OKARYS Music" />
             <h2>Agregar Usuario</h2>
         </div>
-        
+
         <div class="scrollable-content">
-             <form (ngSubmit)="submit()" [formGroup]="form">
-            <div class="form-group">
-                <label>Nombre de usuario</label>
-                <input type="text" formControlName="username" placeholder="Ej: musiclover123">
-                <div *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="error">
-                    Nombre de usuario requerido (mín. 3 caracteres)
+            <form (ngSubmit)="submit()" [formGroup]="form">
+                <div class="form-group">
+                    <label>Nombre de usuario</label>
+                    <input type="text" formControlName="username" placeholder="Ej: musiclover123">
+                    <div *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="error">
+                        Nombre de usuario requerido (mín. 3 caracteres)
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" formControlName="email" placeholder="Ej: tu@email.com">
-                <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="error">
-                    Email inválido
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" formControlName="email" placeholder="Ej: tu@email.com">
+                    <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="error">
+                        Email inválido
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>Contraseña</label>
-                <input type="password" formControlName="password" placeholder="Mínimo 8 caracteres">
-                <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="error">
-                    Contraseña requerida (mín. 8 caracteres)
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" formControlName="password" placeholder="Mínimo 8 caracteres">
+                    <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="error">
+                        Contraseña requerida (mín. 8 caracteres)
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>Confirmar contraseña</label>
-                <input type="password" formControlName="confirmPassword" placeholder="Vuelve a escribir tu contraseña">
-                <div *ngIf="form.get('confirmPassword')?.errors?.['mismatch'] && form.get('confirmPassword')?.touched"
-                    class="error">
-                    Las contraseñas no coinciden
+                <div class="form-group">
+                    <label>Confirmar contraseña</label>
+                    <input type="password" formControlName="confirmPassword"
+                        placeholder="Vuelve a escribir tu contraseña">
+                    <div *ngIf="form.get('confirmPassword')?.errors?.['mismatch'] && form.get('confirmPassword')?.touched"
+                        class="error">
+                        Las contraseñas no coinciden
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>Rol</label>
-                <input type="role" formControlName="role" placeholder="user">
-            </div>
+                <div class="form-group">
+                    <label>Rol</label>
+                    <select formControlName="role">
+                        <option value="user">user</option>
+                        <option value="admin">admin</option>
+                    </select>
+                    <div *ngIf="form.get('role')?.invalid && form.get('role')?.touched" class="error">
+                        Solo se permite 'user' o 'admin'
+                    </div>
+                </div>
 
-            <div *ngIf="errorMessage" class="error-message">
-                {{ errorMessage }}
-            </div>
+                <div *ngIf="errorMessage" class="error-message">
+                    {{ errorMessage }}
+                </div>
 
-            <div *ngIf="successMessage" class="success-message">
-                {{ successMessage }}
-            </div>
+                <div *ngIf="successMessage" class="success-message">
+                    {{ successMessage }}
+                </div>
 
-            <div class="button">
-                <button type="submit" [disabled]="isLoading || form.invalid">
-                    {{ isLoading ? 'Registrando...' : 'Crear cuenta' }}
-                </button>
-            </div>
-        </form>
+                <div class="button">
+                    <button type="submit" [disabled]="isLoading || form.invalid">
+                        {{ isLoading ? 'Registrando...' : 'Crear cuenta' }}
+                    </button>
+                </div>
+            </form>
         </div>
-       
+
     </div>
 </div>

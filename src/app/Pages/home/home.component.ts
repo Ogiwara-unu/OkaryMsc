@@ -19,4 +19,12 @@ export class HomeComponent {
   showSignupModal = false;
 
   constructor(public authService: AuthService) {} // Inyecta el AuthService
+  onSwitchToLogin() {
+    this.showSignupModal = false;
+
+    // Esperamos un poco a que el modal cierre visualmente antes de abrir el otro
+    setTimeout(() => {
+      this.showLoginModal = true;
+    }, 300);
+  }
 }

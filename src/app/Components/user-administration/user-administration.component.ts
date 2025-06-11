@@ -26,7 +26,6 @@ interface User {
     AddUserModalComponent,
     MatProgressSpinnerModule,
     FooterComponent
-  
   ],
   templateUrl: './user-administration.component.html',
   styleUrl: './user-administration.component.css'

@@ -26,7 +26,7 @@ export class UpdateUserModalComponent implements OnInit {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
-      role: ['', Validators.required],
+      role: ['user', [Validators.required, Validators.pattern(/^(user|admin)$/)]],
     });
   }
 

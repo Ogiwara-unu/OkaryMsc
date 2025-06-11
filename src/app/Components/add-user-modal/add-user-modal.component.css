@@ -116,7 +116,6 @@ img {
     font-family: 'Roboto', sans-serif;
     background-color: #BBC0BA;
     color: #333;
-    transition: background-color 0.3s;
 }
 
 .button button:hover {
@@ -126,5 +125,35 @@ img {
 .button button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: #e8e6e6;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 20 20'%3E%3Cpath fill='%23333' d='M5.516 7.548a.75.75 0 0 1 1.062 0L10 10.97l3.422-3.422a.75.75 0 0 1 1.06 1.062l-4 4a.75.75 0 0 1-1.06 0l-4-4a.75.75 0 0 1 0-1.062z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+}
+
+.form-group select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #BBC0BA;
+    background-color: #ddd;
+}
+
+.form-group select:hover {
+    background-color: #ddd;
+    cursor: pointer;
 }
 

@@ -1,9 +1,62 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  flex: 1;
+}
+
+.album-container h2 {
+  text-align: center;
+  font-family: 'Jockey One', sans-serif;
+  font-size: 52px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #BBC0BA;
+  margin-bottom: 2rem;
+}
+
+.add-album-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #BBC0BA;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.add-album-button:hover {
+  background-color: #9ea59a;
+  transform: scale(1.1);
+}
+
+.add-album-button i {
+  margin-top: 2px;
+}
+
 .album-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
-  justify-items: stretch; /* Cambia a stretch para que ocupen todo el ancho */
-  align-items: stretch;   /* Asegura que todas las filas tengan la misma altura */
+  justify-items: stretch;
+  /* Cambia a stretch para que ocupen todo el ancho */
+  align-items: stretch;
+  /* Asegura que todas las filas tengan la misma altura */
   background-color: transparent;
   border-radius: 0;
   box-shadow: none;
@@ -13,24 +66,28 @@
 }
 
 .album-card {
-  background: #FCF9F2;
+  background: #faf8f3;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  width: 100%;                /* Ocupa todo el ancho de la celda */
-  min-height: 320px;          /* Altura mínima para uniformidad */
-  height: 100%;               /* Ocupa todo el alto de la celda */
+  box-shadow: 0 4px 10px rgba(9, 9, 9, 0.08);
+  width: 100%;
+  /* Ocupa todo el ancho de la celda */
+  min-height: 320px;
+  /* Altura mínima para uniformidad */
+  height: 100%;
+  /* Ocupa todo el alto de la celda */
   padding: 18px 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* Alinea el contenido arriba */
+  justify-content: flex-start;
+  /* Alinea el contenido arriba */
   transition: box-shadow 0.2s;
   box-sizing: border-box;
 }
 
 .album-card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-  background: #BBC0BA;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+
 }
 
 .album-image img {
@@ -42,28 +99,32 @@
   background: #e8e6e6;
 }
 
+img {
+  border-radius: 8px;
+}
+
 .album-info h3 {
-  margin: 0 0 8px 0;
+  margin: 0;
+  margin-bottom: 20px;
+  margin-top: 10px;
   font-family: 'Jockey One', sans-serif;
-  color: #9ea59a;
-  font-size: 22px;
+  color: #B3B3B3;
+  font-size: 24px;
   text-align: center;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .album-info p {
-  margin: 4px 0;
-  color: #333;
-  font-size: 15px;
-  text-align: center;
+  margin: 0;
+  margin-bottom: 5px;
+  color: #444;
+  font-size: 16px;
+  text-align: justify;
+  font-family: 'Roboto', sans-serif;
 }
 
-.album-container h2 {
-  text-align: center;
-  font-family: 'Jockey One', sans-serif;
-  font-size: 2.5rem;
-  color: #444;
-  margin-bottom: 2rem;
-}
+
 
 .admin-actions {
   position: fixed;
@@ -74,54 +135,38 @@
   gap: 10px;
 }
 
-.admin-button {
-  padding: 10px 15px;
+
+
+.button-group {
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.button-group button {
+  margin-left: 10px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.button-edit {
+  background-color: #E6DED3;
+  color: #333;
+}
+
+.button-delete {
   background-color: #BBC0BA;
   color: #333;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
 }
 
-.admin-button.add {
-  background-color: #28a745;
-  color: #fff;
-}
-
-.admin-button.edit {
-  background-color: #FCF9F2;
-  color: #333;
+.button-edit:hover,
+.button-delete:hover {
+  background-color: #9ea59a;
 }
 
 .admin-button:hover {
   opacity: 0.85;
   transform: translateY(-2px);
-}
-
-
-.button-group {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  justify-content: center;
-  margin-top: 16px;
-}
-
-.button-group .admin-button {
-  flex: 1 1 0;
-  min-width: 0;
-  max-width: 180px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.admin-button.delete {
-  background-color: #FCF9F2;
-  color: #333;
 }

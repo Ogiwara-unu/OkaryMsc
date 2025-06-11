@@ -1,57 +1,46 @@
 <app-navbar></app-navbar>
-<div class="album-container">
-  <h2>Álbumes</h2>
-  
-  <div *ngIf="loading">Cargando...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
 
-  <div *ngIf="authService.isAdmin()" class="admin-actions">
-    <button class="admin-button add" (click)="onAddAlbum()">
-      <i class="fas fa-plus"></i>
-    </button>
-  </div>
+<body>
+  <div class="album-container">
+    <h2>Álbumes</h2>
 
-  <!-- Lista de álbumes -->
-  <div class="album-list">
-    <div *ngFor="let album of albums" class="album-card">
-      <div class="album-image">
-        <img
-          *ngIf="album.photo"
-          [src]="'http://localhost:9001/images/albums/' + album.photo"
-          alt="Portada del álbum"
-        >
-      </div>
-      <div class="album-info">
-        <h3>{{ album.title }}</h3>
-        <p>Artista: {{ album.artist }}</p>
-        <p *ngIf="album.year">Año: {{ album.year }}</p>
-        <p *ngIf="album.genre">Género: {{ album.genre }}</p>
-        <div class="button-group">
-  <button
-    *ngIf="authService.isAdmin()"
-    class="admin-button edit"
-    (click)="onEditAlbum(album)"
-    type="button"
-  >
-    <i class="fas fa-edit"></i> Editar
-  </button>
-  <button
-    *ngIf="authService.isAdmin()"
-    class="admin-button delete"
-    (click)="onDeleteAlbum(album)"
-    type="button"
-  >
-    <i class="fas fa-trash"></i> Eliminar
-  </button>
-</div>
+    <div *ngIf="loading">Cargando...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div *ngIf="authService.isAdmin()" class="admin-actions">
+      <button class="add-album-button" (click)="onAddAlbum()">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+
+    <!-- Lista de álbumes -->
+    <div class="album-list">
+      <div *ngFor="let album of albums" class="album-card">
+        <div class="album-image">
+          <img [src]="getImageUrl(album.photo)" alt="Portada del álbum" 
+          onerror="this.src='assets/img/default-album.jpeg'">
+        </div>
+        <div class="album-info">
+          <h3>{{ album.title }}</h3>
+          <p> <strong>Artista:</strong> {{ album.artist }}</p>
+          <p *ngIf="album.genre"><strong>Género:</strong> {{ album.genre }}</p>
+          <p *ngIf="album.year"><strong>Año:</strong> {{ album.year }}</p>
+          <div class="button-group">
+            <button *ngIf="authService.isAdmin()" class="button-edit" (click)="onEditAlbum(album)" type="button">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+            <button *ngIf="authService.isAdmin()" class="button-delete" (click)="onDeleteAlbum(album)" type="button">
+              <i class="fas fa-trash"></i> Eliminar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<app-album-modal
-  *ngIf="showAlbumModal"
-  [album]="albumToEdit"
-  (close)="onModalClosed()"
-  (saved)="onAlbumSaved($event)">
+</body>
+
+<app-album-modal *ngIf="showAlbumModal" [album]="albumToEdit" (close)="onModalClosed()" (saved)="onAlbumSaved($event)">
 </app-album-modal>
+
+<app-footer></app-footer>

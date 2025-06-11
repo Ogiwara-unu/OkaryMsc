@@ -8,7 +8,7 @@ import { AlbumsService, Album } from '../../Services/albums.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './album-modal.component.html',
-  styleUrls: ['../signup-modal/signup-modal.component.css']
+  styleUrls: ['../album-modal/album-modal.component.css']
 })
 export class AlbumModalComponent implements OnInit {
   @Input() album?: Album;
